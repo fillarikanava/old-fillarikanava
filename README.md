@@ -14,24 +14,29 @@ Alla ohjeistus, miten datan saa käyttöön.
 
 
 
-###README 7.9.2012
+##README 7.9.2012
 
-Moi!
 
-1. SVN
+###1. SVN
 
 SVN-repon ja checkoutit saa pelaamaan alla olevilla esimerkkikomennoilla, kunhan vain Subversion on asennettu.
 
+
+```
 $ mkdir -p /home/janne/svn/repos/hila
 $ svnadmin create /home/janne/svn/repos/hila
 $ svnadmin load /home/janne/svn/repos/hila < backup.svn
 
+```
+
 Sitten esim.:
 
+```
 $ mkdir -p /home/janne/projects/hila
 $ cd /home/janne/projects/hila
 $ svn co file:///home/janne/svn/repos/hila/hila_webapp/trunk hila_webapp
 
+```
 Tuon hila_webapp:in lisäksi löytyy näitä:
 dev/
 graphics/
@@ -41,11 +46,13 @@ xapian-components
 
 Repoa voi selailla komennolla:
 
+
+```
 $ svn list file:///home/janne/svn/repos/hila
 
-*******************************************************************'
+```
 
-2. TIETOKANNAT
+###2. TIETOKANNAT
 
 Asenna MySQL. Sitten rootina sisään mysql-terminaaliin ja:
 
@@ -55,12 +62,20 @@ mysql> flush privileges;
 
 Sitten komentoriviltä (ei mysql-terminaalista!) vaikka normikäyttäjänä:
 
+
+```
 $ mysql -u hila_roundup -p < hila_roundup_2011-12-25_04h25m.Sunday.sql  	<-- ANNA SALASANA 'hila_roundup'
+
+```
 
 Sitten voikin mennä tsekkaamaan kantaa:
 
+```
 $ mysql -u hila_roundup -p hila_roundup         <-- ANNA SALASANA 'hila_roundup'
 
+```
+
+```
 mysql> show tables;
 +------------------------+
 | Tables_in_hila_roundup |
@@ -111,6 +126,10 @@ mysql> show tables;
 +------------------------+
 43 rows in set (0.00 sec)
 
+```
+
+
+```
 mysql> select id, _title, _creation from _issue limit 10;
 +----+-----------------------------------------------------------------------+---------------------+
 | id | _title                                                                | _creation           |
@@ -128,21 +147,30 @@ mysql> select id, _title, _creation from _issue limit 10;
 +----+-----------------------------------------------------------------------+---------------------+
 10 rows in set (0.00 sec)
 
+```
 
 Ja niin edelleen...
 
 Ja merkistöä voi koittaa säätä komennoilla:
 
+
+```
 mysql> set names latin1;
+
+```
 
 tai
 
+
+```
 mysql> set names utf8;
+
+```
 
 Voi olla, että meillä on merkistöongelmia ollut kannan tai 
 tallentamisen kanssa, en oo ihan varma. Mutta noita nyt voi korjata 
 konvertoimalla ym.
 
--@jnur
+@jnur
 
 
