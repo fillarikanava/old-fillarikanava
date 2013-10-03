@@ -1,0 +1,313 @@
+{% extends "organisation.html" %}
+{% block title %}Karttaselaus | {{ block.super }}{% endblock %}
+
+{% block navigation %}
+{% activetab "subnav" "timemap" %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+<style><!--
+#search {
+	float: left;
+	max-width: 45%;
+	padding: 10px;
+}
+#results {
+	float: right;
+	max-width: 45%;
+	padding: 10px;
+}
+#timemap, #footer {
+	float: left;
+	width: 100%;
+}
+.dead {
+	margin: 12px 0;
+	padding: 10px;
+	background-color: #d0d0d0;
+	width: 100%;
+	overflow: hidden;
+}
+.dead * {
+	margin: 6px;
+}
+--></style>
+<div id="timemap">
+	<div id="timelinecontainer">
+		<div id="timeline"></div>
+	</div>
+	<div id="mapcontainer">
+		<div id="map"></div>
+	</div>
+</div>
+<div id="search">
+	<form action="{% url search_json %}" method="get" id="issue_search">
+{% csrf_token %}
+		<p class="form-title">Etsi raportteja <span class="note submit-result" style="display: none;">(päivitetään...)</span></p>
+		<p>
+			<input type="checkbox" name="nosy" id="issues_nosy">
+			<label for="issues_nosy">Näytä vain seuraamani</label>
+		</p>
+		<p>
+			<input type="checkbox" name="org_active" id="issues_org_active">
+			<label for="issues_org_active">Osallistuttu omasta organisaatiosta</label>
+		</p>
+		<p>
+			<input type="checkbox" name="org_queue" id="issues_org_queue">
+			<label for="issues_org_queue">Oman organisaation käsittelyssä</label>
+		</p>
+		<p>
+			<label for="issues_phrase">Tekstihaku:</label>
+			<input type="text" name="phrase" id="issues_phrase">
+		</p>
+		<p>
+			<label for="issues_tags">Avainsanat:</label>
+			<input type="text" name="tags" id="issues_tags" class="nocommas">
+			<span class="note">esim. “hämeentie jalkakäytävä”</span>
+		</p>
+		<p>
+			<label for="issues_queue">Käsittelijät:</label>
+			<input type="text" name="queue" id="issues_queue" class="nocommas">
+			<span class="note">esim. “apoikola jannesav”</span>
+		</p>
+		<p>
+			<label for="issues_priority">Kiireellisyys vähintään:</label>
+			<select name="min_priority" id="issues_priority">
+				<option value="" selected="selected"></option>
+				<option value="elevated">korotettu</option>
+				<option value="urgent">kiireellinen</option>
+			</select>
+		</p>
+		<p>
+			<select name="status" id="issues_status">
+				<option value="" selected="selected">kaikki tilat</option>
+				<option value="chatting">keskustelu</option>
+				<option value="rfc">pyydetään kommentteja</option>
+				<option value="merged">yhdistetty</option>
+				<option value="closed">suljettu</option>
+			</select>
+		</p>
+		<p>
+			<input type="checkbox" name="map" id="issues_map">
+			<label for="issues_map">Rajaa kartalla</label>
+		</p>
+		<p>
+			<label for="issues_ordering">Järjestä lista</label>
+			<select id="issues_ordering" name="ordering">
+				<option value="popularity" selected="selected">suosittuuden</option>
+				<option value="status">käsittelyn tilan</option>
+				<option value="report_date">raportin päivämäärän</option>
+				<option value="comment_date">kommenttien päivämäärän</option>
+			</select>
+			mukaan
+		</p>
+		<p>
+			<input type="checkbox" name="sort_new" id="issues_sort_new" checked="checked">
+			<label for="issues_sort_new">Näytä uudet raportit ensin</label>
+		</p>
+		<p class="dead">
+			<input type="submit" value="Tallenna haku:">
+			<input type="text" name="filter_name" id="issues_filter_name" class="trim">
+			<span class="note submit-result"></span>
+		</p>
+	</form>
+</div>
+<div id="results"></div>
+{% endblock %}
+
+{% block javascript %}
+<textarea id="gmaps_issue_template" style="display: none;">
+	<div class="issue">
+		<a href="${link}"><h1 class="title">${title}</h1></a>
+		<span class="author">${author}</span>
+		<p class="description">${description|br|wrap:140}</p>
+		<div class="thumbs">
+			<img src="{{ MEDIA_URL }}images/thumb-up.png" />
+			<img src="{{ MEDIA_URL }}images/thumb-down.png" />
+		</div>
+		{for comment in comments}
+		<div class="comment">
+			<span class="author">${comment.author}</span>
+			<p>${comment.text|br|wrap:100}</p>
+		</div>
+		{/for}
+		{if more_comments > 0}
+		(${more_comments} more comments...)
+		{/if}
+	</div>
+</textarea>
+<textarea id="issue_template" style="display: none;">
+	<div class="issue" id="${options.id}" style="display: none;">
+		<a href="${options.link}"><h1 class="title">${title}</h1></a>
+		<p class="description">${options.description|br}</p>
+		<span class="author">${options.author}</span>
+		{if options.comments.length > 0}
+		<a href="#" class="expand">${options.comments.length} kommenttia &raquo;</a>
+		<div class="hidden">
+			{for comment in options.comments}
+			<div class="comment">
+				<p>${comment.text|br}</p>
+				<span class="author">${comment.author}</span>
+			</div>
+			{/for}
+		</div>
+		{/if}
+	</div>
+</textarea>
+
+{{ block.super }}
+<script src="http://www.google.com/jsapi?key={{ settings.GOOGLE_MAPS_KEY }}" type="text/javascript"></script>
+<script type="text/javascript"><!--
+google.load("maps", "2.x");
+$('body').unload(function () { GUnload(); });
+Timeline_urlPrefix = "http://static.simile.mit.edu/timeline/api/"; 
+//--></script> 
+<script src="http://static.simile.mit.edu/timeline/api/timeline-api.js" type="text/javascript"></script>
+<script src="{{ MEDIA_URL }}timemap-1.4/timemap_full.pack.js" type="text/javascript"></script>
+<script src="{{ MEDIA_URL }}js/hila.timemap.js" type="text/javascript"></script>
+<script type="text/javascript"><!--
+
+function issueTimeMapTransform(item) {
+	// Preview two latest comments
+	if (item.options.comments.length > 2) {
+		item.options.more_comments = item.options.comments.length - 2;
+		item.options.comments = item.options.comments.slice(0, 2);
+	} else {
+		item.options.more_comments = 0;
+	}
+	return item;
+}
+
+var mapIssueTemplate = TrimPath.parseDOMTemplate('gmaps_issue_template');
+function loadTimeMapData(datasource) {
+	return TimeMap.init({
+		mapId: 'map',
+		timelineId: 'timeline',
+		datasets: [{
+			title: 'HILA raportit', 
+			data: datasource,
+			transformFunction: issueTimeMapTransform
+		}],
+		bandInfo: [{
+			width: '80%',
+			intervalUnit: Timeline.DateTime.WEEK,
+			intervalPixels: 60
+		}, {
+			width: '20%',
+			intervalUnit: Timeline.DateTime.MONTH,
+			intervalPixels: 40,
+			showEventText: false,
+			trackHeight: 0.4,
+			trackGap: 0.2
+		}],
+		options: {
+			openInfoWindow: Hila.timemap.openIssueWindowFn(mapIssueTemplate)
+		}
+	});
+}
+
+var searchForm = $('#issue_search');
+var liveInputs = $(':input', searchForm).not('.dead :input');
+var issueTemplate = TrimPath.parseDOMTemplate('issue_template');
+var lastChange = 0;
+var timeoutId = null;
+
+function updateResults(token) {
+	$('.form-title .submit-result').show();
+	searchForm.jsonsubmit({
+		data: liveInputs.values(),
+		success: function(data, status) {
+			var ids = $.map(data, function(el) { return el.options.id; });
+			// Remove issues not in result set any more
+			$('#results .issue').filter(function() {
+				return $.inArray(this.id, ids) < 0;
+			}).slideUp('fast', function() { $(this).remove(); });
+			var existing = $('#results .issue').map(function() {
+				return this.id;
+			});
+			// Filter out already formatted results
+			var newHits = $.grep(data, function(el, i) {
+				return $.inArray(el.options.id, existing) < 0;
+			});
+			// Insert new issues to correct places
+			var next = 0;
+			$('#results .issue').each(function() {
+				for (var i in newHits.slice(next)) {
+					var el = newHits[next];
+					if (el.options.id > this.id) {
+						break;
+					}
+					el._MODIFIERS = Hila.jst.jstCustomModifiers;
+					$(issueTemplate.process(el)).insertBefore(this)
+						.slideDown('fast')
+						.effect('highlight', {color: '#f0f000'}, 2000);
+					next++;
+				}
+			});
+			// Append remaining new issues to the end of list
+			for (var i in newHits.slice(next)) {
+				var data = newHits[next + parseInt(i)];
+				data._MODIFIERS = Hila.jst.jstCustomModifiers;
+				el = $(issueTemplate.process(data)).appendTo('#results').slideDown('fast');
+				if (existing.length > 0) {
+					el.effect('highlight', {color: '#f0f000'}, 2000);
+				}
+			}
+			loadTimeMapData({ type: 'basic', value: data });
+			$('.form-title .submit-result').hide();
+		}
+	});
+}
+
+function updateLoop() {
+	if (new Date().getTime() - lastChange < 1000) {
+		if (timeoutId === null) {
+			timeoutId = window.setTimeout(function() { timeoutId = null; updateLoop(); }, 500);
+		}
+	} else {
+		updateResults();
+	}
+}
+
+liveInputs.bind('change keyup', function() {
+	lastChange = new Date().getTime();
+	updateLoop();
+});
+
+$('.nocommas').bind('change keyup', function() {
+	this.value = this.value.replace(',', ' ').replace(/\s{2,}/, ' ');
+});
+
+$('#issues_filter_name').bind('change keyup', function() {
+	var valid = this.value.length > 0;
+	$(':submit', searchForm).each(function() { this.disabled = !valid; });
+});
+
+$(':submit', searchForm).click(function() {
+	var statusField = $('~ .submit-result', this);
+	statusField.removeClass('error').text('Tallennetaan...');
+	searchForm.jsonsubmit({
+		url: '{% url org_filter_save %}',
+		method: 'post',
+		success: function(data, status) {
+			statusField.text('Ok');
+		},
+		error: function(xhr, status, error) {
+			statusField.addClass('error').text('Tallennus epäonnistui');
+		}
+	});
+	return false;
+});
+
+$(function() {
+	$('#issues_filter_name').change();
+	liveInputs.slice(0, 1).change();
+});
+
+$('.expand').live('click', function() {
+	$(this).siblings('.hidden').slideToggle('fast');
+	return false;
+});
+//--></script> 
+{% endblock %}

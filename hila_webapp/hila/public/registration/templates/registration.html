@@ -1,0 +1,16 @@
+{% extends "front_base.html" %}
+{% block content %}
+<div id="content"><div id="content_top"></div>
+    <form action="{% url signup %}" method="POST">{% csrf_token %}{% csrf_token %}
+        {% for field in form %}
+            <div class="required">
+                <div class="error">{{ field.errors }}</div>
+                <div class="label">{% trans field.label_tag %}</div>
+                <div class="field">{{ field }}</div>
+            </div>
+        {% endfor %}
+        <p><input type="submit" value="{% trans 'Register' %}" /></p>
+    </form>
+</div>
+
+{% endblock %}

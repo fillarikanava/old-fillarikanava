@@ -1,0 +1,254 @@
+ {% extends "fillarikanava_map.html" %}
+ {% block header %}
+
+ {{   block.super }}
+
+
+ {% endblock %}
+
+ {% block title %} {{ block.super }} {% endblock %}
+ {% block javascript-head %}
+    {{ block.super }}
+        <!--  front-base :: javascripts -->
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#front-tabs").tabs();
+                $("#front-tabs").removeClass("hide");
+            });
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                var tabs = $('div#front-tabs > div');
+                tabs.hide().filter(':first').show();
+
+                $('div#front-tabs ul.tab-navi a').click(function () {
+                    tabs.hide();
+                    tabs.filter(this.hash).show();
+                    $('div#front-tabs ul.tab-navi a').removeClass('selected');
+                    $(this).addClass('selected');
+                    return false;
+                }).filter(':first').click();
+            });
+        </script>
+ {% endblock %}
+ {% block mainpanel %}<!-- this is outrageous kludging, definite TODO: fix this when you have time to
+learn about automating this! -->
+{% if decorations.custom_selected_tagfilter %}
+<form action="{% url tagged_report_create decorations.custom_selected_tagfilter %}" method="POST" enctype="multipart/form-data" class="p-form">{% csrf_token %}{% csrf_token %}
+{% else %}
+
+<!-- this is outrageous kludging, definite TODO: fix this when you have time to
+learn about automating this! -->
+{% if decorations.custom_selected_tagfilter %}
+<form action="{% url tagged_report_create custom_selected_tagfilter %}" method="POST" enctype="multipart/form-data" class="p-form">{% csrf_token %}{% csrf_token %}
+{% else %}
+<form action="{% url report_create %}" method="POST" enctype="multipart/form-data" class="p-form">{% csrf_token %}{% csrf_token %}
+{% endif %}
+<form action="{% url report_create %}" method="POST" enctype="multipart/form-data" class="p-form">{% csrf_token %}{% csrf_token %}
+{% endif %}
+  {{ block.super }}
+
+
+
+    <div id="content_bottom"></div>
+ {% endblock %}
+
+ {% block sidebar %}
+ <div id="issueview"><!--[if lte IE 7]>
+ <div style="height:16px;"></div>
+ <![endif]-->
+
+
+
+  <! --- MAIN FORM -->
+
+
+  <!--[if lte IE 7]>
+  <div style="height:24px;"></div>
+  <![endif]-->
+  <div class="report-create">
+  	<h3>{% trans "New message" %}</h3>
+
+    {% if decorations.allow_creation %}
+
+  	{% if request.user.is_authenticated or form_captcha %}
+  		<!-- What is happening here? -->
+
+          {% if request.user.is_authenticated %}
+  		    <p>{% trans "Your message" %} {% trans "will be registered with your login name " %} {{ user.first_name }} {{ user.last_name }}.</p>
+      	{% else %}
+  			{{ form_captcha.as_p }}
+  	    	<p>{% trans "Your message" %} {% trans "will be saved anonymously" %}. {% trans "If you would like to leave" %} {% trans "the message" %} {% trans "with name please, " %} <a href="{% url login %}">{% trans "Login" %}</a> {% trans "or" %} <a href="{% url signup %}">{% trans "Sign up" %}</a>.</p>
+          {% endif %}
+
+  	<div id="newmarkerbutton">
+  		<a class="marker" href="javascript:newButtonClick()"> <img src="{{ MEDIA_URL }}/images/icons/silk_icons/map_add.png" style="vertical-align:middle" alt="comment"/> {% trans "Add a new placemarker on the map." %}</a>
+  	</div>
+
+  	<div id="newmarkerform" style="display:none;">
+  <img src="{{ MEDIA_URL }}/images/icons/silk_icons/map_add.png" style="vertical-align:middle" alt="comment"/>
+  {% trans "Place a marker by clicking on the map." %}
+  		{{ form_geo.as_p }}
+  		<span id="addresswarning"></span>
+  	</div>
+
+  	<div id="newfilebutton">
+  <img src="{{ MEDIA_URL }}/images/icons/silk_icons/photo_add.png" style="vertical-align:middle" alt="comment"/>
+  		<a class="file" href="javascript:fileButtonClick()">{% trans "Upload a new image." %}</a><br /><br />
+  	</div>
+
+  	<div id="newfileform" style="display:none;">
+      <img src="{{ MEDIA_URL }}/images/icons/silk_icons/photo_add.png" style="vertical-align:middle" alt="comment"/>
+  		{% trans "Select file to upload." %}
+  		{{ form_file.as_p }}
+
+  		<script type="text/javascript">
+  		</script>
+  	</div>
+
+  	<p>{% trans "Maximum length of a message is 140 characters. If you want to write more you can comment on your message after saving it." %}</p>
+
+  	{{ form_main.as_p }}
+
+  	{{ form_keywords.as_p }}
+  	<div class="report-create-right">
+
+  		<p>{% trans "Characters remaining: " %}<strong><span id="counter"></span></strong></p>
+  		<br><br><br>
+  		<input type="submit" value="{% trans "Create new" %}" />
+  	</div>
+
+
+
+  </div>
+
+
+
+
+  <div id="similar_box">
+  	<div id="matches"></div>
+  	<p>{% trans "When you start writing, we'll show similar items here" %}
+
+  	{% else %}
+  		<p>{% trans "Because of spamming, anonymous messages are not allowed at the moment." %}.</p>
+  		<p>  <a href="{% url login %}">{% trans "Login" %}</a> {% trans "or" %} <a href="{% url signup %}">{% trans "Sign up" %}</a>.</p>
+
+      {% endif %}
+
+  </div>
+  </form>
+  
+{% else %}
+    <p>
+    {% blocktrans with decorations.custom_description as tag %} Leaving messages related to the theme <b>{{ tag }}</b> is not allowed at this time.{%  endblocktrans %}
+        <a href="{% url report_create %}">
+        {% trans "Please leave new messages through the default message creation page." %}
+        </a>
+    {% if decorations.allow_commenting %}
+        {% trans "You can still comment existing messages on this theme." %}
+    {% endif %}
+    </p>
+{% endif %}
+
+
+
+    <div id="follow">
+        <p>{% trans "Service brought to you by:" %}<br/>
+ <a href="http://www.hel.fi/wps/portal/Kaupunkisuunnitteluvirasto/Artikkeli?WCM_GLOBAL_CONTEXT=/Ksv/fi/Liikennesuunnittelu/Py_r_ily+ja+jalankulku/"> <img src="{{ MEDIA_URL }}/images/logo_hki.jpg" alt="Helsingin kaupunki" /></a></p>
+     <p>{% trans "In cooperation:" %}<br />
+ <a href="http://www.hepo.fi/"> <img src="{{ MEDIA_URL }}/images/logo_hepo.jpg" alt="HePo" /></a><a href="http://www.fillarihelsinki.fi/"> <img src="{{ MEDIA_URL }}/images/logo_fillarihki.jpg" alt="Fillari Helsinki" /></a></p>
+
+
+        <p>{% trans "Follow us on" %}:<br />
+            <a href="http://www.facebook.com/group.php?gid=36053834482"> <img src="{{ MEDIA_URL }}/images/facebook.png" alt="Facebook" height="25" /></a>
+            <a href="http://www.qaiku.com/channels/show/fillarikanava/"> <img src="{{ MEDIA_URL }}/images/qaiku.png" alt="Qaiku" height="25" /></a>
+            <a href="http://twitter.com/fillarikanava"> <img src="{{ MEDIA_URL }}/images/twitter.png" alt="Twitter" height="25"/></a>
+        </p>
+
+
+
+    </div>
+
+ </div>
+
+ {% endblock %}
+
+{% block javascript %}
+ {{ block.super }}
+
+ <script type="text/javascript">
+
+  putFirstMarker(0 {% if lat %}{% if lng %},{{lat}},{{lng}}{% endif %}{% endif %});
+
+  	var screenState = 'create';
+  	var msg_cancel = '{% trans "Cancel" %}';
+  	var msg_addbutton = '{% trans "Add new place on the map" %}';
+  	var msg_address_not_found = '{% trans "Address not found:" %}';
+	{% if custom_create_url %}
+	var create_url = '{{   custom_create_url }}';
+	{% else %}
+	var create_url = '{% url report_create %}';
+    {% endif %}
+	newButtonInit();
+
+	refreshData();
+  	</script>
+
+
+
+
+ <script type="text/javascript">
+ function closeFirstTimeInfo() {
+     $("#first_time_info").hide('slow');
+     $("#first_time_info_open").show('slow');
+ }
+
+ function openFirstTimeInfo() {
+     $("#first_time_info").show('slow');
+     $("#first_time_info_open").hide('slow');
+ }
+
+ </script>
+
+
+ <script type="text/javascript">
+
+ function fileButtonClick() {
+    $("#newfilebutton").hide('slow');
+    $("#newfileform").show('slow');
+ }
+
+ /**
+  * Character Counter for inputs and text areas
+  */
+ // Thanks to http://www.jamesfairhurst.co.uk/posts/view/jquery_word_character_counter/
+
+ // TODO: message length and field names hardcoded here. Bad bad bad...
+          $('#counter').html( 140 - $('#id_message').val().length );
+
+         // get current number of characters
+         var length = $('#id_message').val().length;
+         // get current number of words
+         //var length = $(this).val().split(/\b[\s,\.-:;]*/).length;
+         // update characters
+         $('#id_message').parent().find('.counter').html( length + ' characters');
+         // bind on key up event
+         $('#id_message').keyup(function(){
+             // get new length of characters
+             var new_length = $('#id_message').val().length;
+             // get new length of words
+             //var new_length = $(this).val().split(/\b[\s,\.-:;]*/).length;
+             // update
+             var char_rem = 140 - new_length;
+             if (char_rem < 0) {
+                $('#counter').html('<span style="background-color:#FF0000">' + char_rem + '</span>' );
+             }
+             else
+             {
+                $('#counter').html(char_rem);
+             }
+         });
+
+ </script>
+
+ {% endblock javascript %}

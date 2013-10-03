@@ -1,0 +1,63 @@
+from django.conf.urls.defaults import *
+from django.views.generic.simple import direct_to_template
+from django.contrib.auth import views as auth_views
+
+from hila.public.signup.views import activate, activation_request, activation_request_sent, register, xd_receiver
+
+urlpatterns = patterns('',
+                       # Activation keys get matched by \w+ instead of the more specific
+                       # [a-fA-F0-9]{40} because a bad activation key should still get to the view;
+                       # that way it can return a sensible "invalid key" message instead of a
+                       # confusing 404.
+                       url(r'^activate/request/$',
+                           activation_request,
+                           name='activation_request'),
+                       url(r'^activate/request/sent/$',
+                           activation_request_sent,
+                           name='activation_request_sent'),
+                       url(r'^activate/(?P<activation_key>\w+)/$',
+                           activate,
+                           name='registration_activate'),
+                       url(r'^login/$',
+                           auth_views.login,
+                           {'template_name': 'login.html'},
+                           name='login'),
+                       url(r'^logout/$',
+                           auth_views.logout,
+                           {'template_name': 'logout.html'},
+                           name='logout'),
+                       url(r'^password/change/$',
+                           auth_views.password_change,
+                           {'template_name': 'password_change_form.html'},
+                           name='auth_password_change'),
+                       url(r'^password/change/done/$',
+                           auth_views.password_change_done,
+                           {'template_name': 'password_change_done.html'},
+                           name='auth_password_change_done'),
+                       url(r'^password/reset/$',
+                           auth_views.password_reset,
+                           {'template_name': 'password_reset_form.html',
+                            'email_template_name': 'password_reset_email.html'},
+                           name='auth_password_reset'),
+                       url(r'^password/reset/confirm/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$',
+                           auth_views.password_reset_confirm,
+                           {'template_name': 'password_reset_confirm.html'},
+                           name='auth_password_reset_confirm'),
+                       url(r'^password/reset/complete/$',
+                           auth_views.password_reset_complete,
+                           {'template_name': 'password_reset_complete.html'},
+                           name='auth_password_reset_complete'),
+                       url(r'^password/reset/done/$',
+                           auth_views.password_reset_done,
+                           {'template_name': 'password_reset_done.html'},
+                           name='auth_password_reset_done'),
+                       url(r'^signup/$',
+                           register,
+                           name='signup'),
+                       url(r'^signup/complete/$',
+                           direct_to_template,
+                           {'template': 'registration_complete.html'},
+                           name='registration_complete'),
+                       url(r'^xd_receiver\.htm$',
+                           xd_receiver),
+                       )

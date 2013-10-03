@@ -1,0 +1,27 @@
+119,123c119,130
+<     if pieces[0] == 'branches':
+<         return (os.path.join(*pieces[:2]),
+<                 os.path.join(*pieces[2:]))
+<     if pieces[0] == 'trunk':
+<         return (pieces[0], os.path.join(*pieces[1:]))
+---
+>     branch = []
+>     while pieces[0] not in ('trunk', 'branches'):
+>         branch.append(pieces.pop(0))
+>     if branch and pieces:
+>         branch.append(pieces.pop(0))
+>         return (os.path.join(*branch),
+>                 os.path.join(*pieces))
+> #    if pieces[0] == 'branches':
+> #        return (os.path.join(*pieces[:2]),
+> #                os.path.join(*pieces[2:]))
+> #    if pieces[0] == 'trunk':
+> #        return (pieces[0], os.path.join(*pieces[1:]))
+130c137
+< split_file = split_file_dummy
+---
+> split_file = split_file_branches
+149c156
+<         changed = [x[6:].strip() for x in changed]
+---
+>         changed = [x[4:].strip() for x in changed]

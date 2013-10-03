@@ -1,0 +1,10 @@
+{% extends "account.html" %}
+
+{% block navigation %}
+{% activetab "subnav" "info" %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+<p>{% trans "Wellcome," %} {{ request.user.first_name }}!</p>
+{% endblock %}

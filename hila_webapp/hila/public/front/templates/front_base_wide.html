@@ -1,0 +1,34 @@
+{% extends "hila_base.html" %}
+{% block header %}
+
+
+<div id="header">
+
+	<div id="logo" style="margin-top:10px;">
+		<a href="{% url public_front %}"><img src="{{ MEDIA_URL }}/images/logo.png" style="border:0;"></a>
+	</div>
+</div>
+
+
+{% endblock %}
+
+{% block content %}				
+<!-- content begin -->
+
+<div id="content">
+	{% block mainpanel %}{% endblock %}	
+</div>
+<!-- content end -->
+
+<!-- sidebar begin -->
+
+<div class="sidebar">
+	{% block sidebar %}{% endblock %}	
+</div>
+
+<!-- sidebar ends -->
+{% endblock %}
+
+{% block footer%}
+
+{% endblock %}

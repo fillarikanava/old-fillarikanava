@@ -1,0 +1,13 @@
+{% extends "front_base.html" %}
+
+{% block navigation %}
+{% activetab "topnav" "organisation" %}
+{{ block.super }}
+<div class="subtabrow">
+	<ul id="subtabrow">
+		<li class="subtab{% ifactivetab "subnav" "timemap" %} subtabselected{% endifactivetab %}">
+			<a href="{% url org_timemap %}">Karttaselaus</a>
+		</li>
+	</ul>
+</div>
+{% endblock %}

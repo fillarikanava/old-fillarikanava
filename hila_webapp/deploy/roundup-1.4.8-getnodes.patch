@@ -1,0 +1,154 @@
+Index: roundup/backends/rdbms_common.py
+===================================================================
+--- roundup/backends/rdbms_common.py	(revision 4209)
++++ roundup/backends/rdbms_common.py	(working copy)
+@@ -995,19 +995,13 @@
+     def getnode(self, classname, nodeid):
+         """ Get a node from the database.
+         """
+-        # see if we have this node cached
+-        key = (classname, nodeid)
+-        if self.cache.has_key(key):
+-            # push us back to the top of the LRU
+-            self.cache_lru.remove(key)
+-            self.cache_lru.insert(0, key)
+-            if __debug__:
+-                self.stats['cache_hits'] += 1
+-            # return the cached information
+-            return self.cache[key]
++        return self.getnodes(classname, [nodeid])[0]
+ 
++    def getnodes(self, classname, nodeids):
++        if not nodeids:
++            return []
++
+         if __debug__:
+-            self.stats['cache_misses'] += 1
+             start_t = time.time()
+ 
+         # figure the columns we're fetching
+@@ -1015,54 +1009,67 @@
+         cols, mls = self.determine_columns(cl.properties.items())
+         scols = ','.join([col for col,dt in cols])
+ 
+-        # perform the basic property fetch
+-        sql = 'select %s from _%s where id=%s'%(scols, classname, self.arg)
+-        self.sql(sql, (nodeid,))
++        self.cursor.execute('select id, %s from _%s where id IN (%s)'%(scols, classname, ','.join(nodeids)))
++        nodes = []
++        for values in self.cursor.fetchall():
++            if values is None:
++                break
++            nodeid, values = values[0], values[1:]
++            # see if we have this node cached
++            key = (classname, nodeid)
++            if self.cache.has_key(key):
++                # push us back to the top of the LRU
++                self.cache_lru.remove(key)
++                self.cache_lru.insert(0, key)
++                if __debug__:
++                    self.stats['cache_hits'] += 1
++                # return the cached information
++                nodes.append(self.cache[key])
++                continue
+ 
+-        values = self.sql_fetchone()
+-        if values is None:
+-            raise IndexError, 'no such %s node %s'%(classname, nodeid)
++            if __debug__:
++                self.stats['cache_misses'] += 1
+ 
+-        # make up the node
+-        node = {}
+-        props = cl.getprops(protected=1)
+-        for col in range(len(cols)):
+-            name = cols[col][0][1:]
+-            if name.endswith('_int__'):
+-                # XXX eugh, this test suxxors
+-                # ignore the special Interval-as-seconds column
+-                continue
+-            value = values[col]
+-            if value is not None:
+-                value = self.to_hyperdb_value(props[name].__class__)(value)
+-            node[name] = value
++            # make up the node
++            node = {}
++            props = cl.getprops(protected=1)
++            for col in range(len(cols)):
++                name = cols[col][0][1:]
++                if name.endswith('_int__'):
++                    # XXX eugh, this test suxxors
++                    # ignore the special Interval-as-seconds column
++                    continue
++                value = values[col]
++                if value is not None:
++                    value = self.to_hyperdb_value(props[name].__class__)(value)
++                node[name] = value
+ 
++            # now the multilinks
++            for col in mls:
++                # get the link ids
++                sql = 'select linkid from %s_%s where nodeid=%s'%(classname, col,
++                    self.arg)
++                self.sql(sql, (nodeid,))
++                # extract the first column from the result
++                # XXX numeric ids
++                items = [int(x[0]) for x in self.cursor.fetchall()]
++                items.sort ()
++                node[col] = [str(x) for x in items]
+ 
+-        # now the multilinks
+-        for col in mls:
+-            # get the link ids
+-            sql = 'select linkid from %s_%s where nodeid=%s'%(classname, col,
+-                self.arg)
+-            self.sql(sql, (nodeid,))
+-            # extract the first column from the result
+-            # XXX numeric ids
+-            items = [int(x[0]) for x in self.cursor.fetchall()]
+-            items.sort ()
+-            node[col] = [str(x) for x in items]
++            # save off in the cache
++            key = (classname, nodeid)
++            self.cache[key] = node
++            # update the LRU
++            self.cache_lru.insert(0, key)
++            if len(self.cache_lru) > self.cache_size:
++                del self.cache[self.cache_lru.pop()]
+ 
+-        # save off in the cache
+-        key = (classname, nodeid)
+-        self.cache[key] = node
+-        # update the LRU
+-        self.cache_lru.insert(0, key)
+-        if len(self.cache_lru) > self.cache_size:
+-            del self.cache[self.cache_lru.pop()]
++            if __debug__:
++                self.stats['get_items'] += (time.time() - start_t)
+ 
+-        if __debug__:
+-            self.stats['get_items'] += (time.time() - start_t)
++            nodes.append(node)
++        return nodes
+ 
+-        return node
+-
+     def destroynode(self, classname, nodeid):
+         """Remove a node from the database. Called exclusively by the
+            destroy() method on Class.
+Index: roundup/hyperdb.py
+===================================================================
+--- roundup/hyperdb.py	(revision 4209)
++++ roundup/hyperdb.py	(working copy)
+@@ -846,6 +846,11 @@
+         """
+         return Node(self, nodeid)
+ 
++    def getnodes(self, nodeids):
++        # populate cache
++        self.db.getnodes(self.classname, nodeids)
++        return [Node(self, id) for id in nodeids]
++
+     def getnodeids(self, retired=None):
+         """Retrieve all the ids of the nodes for a particular Class.
+         """

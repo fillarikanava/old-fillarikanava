@@ -1,0 +1,12 @@
+{% load i18n  %}
+
+{% if obj.options.comments %}
+ {% for comment in obj.options.comments %}
+ {% if forloop.last %}
+  {{ comment.text|truncatewords_html:25 }}
+
+{% endif%}
+{% endfor %}
+{% else %}
+{{ obj.title }}
+{% endif%}

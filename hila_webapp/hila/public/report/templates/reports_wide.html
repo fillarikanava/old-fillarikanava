@@ -1,0 +1,19 @@
+{% extends "front_base_wide.html" %}
+
+{% block navigation %}
+{% activetab "topnav" "reports" %}
+{{ block.super }}
+<div class="subtabrow">
+	<ul id="subtabrow"><!--
+		<li class="subtab{% ifactivetab "subnav" "timemap" %} subtabselected{% endifactivetab %}">
+			<a href="{% url browse_timemap %}">Karttaselaus</a>
+		</li>
+		<li class="subtab{% ifactivetab "subnav" "archives" %} subtabselected{% endifactivetab %}">
+			<a href="{% url archives_index_status %}">Arkisto</a>
+		</li>
+		<li class="subtab{% ifactivetab "subnav" "create" %} subtabselected{% endifactivetab %}">
+			<a href="{% url report_create %}">Jätä uusi vikaraportti</a>
+		</li>
+	</ul>-->
+</div>
+{% endblock %}

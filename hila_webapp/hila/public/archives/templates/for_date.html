@@ -1,0 +1,10 @@
+{% for report in reports %}
+<li class="report">
+	<a href="{% url report_view report.id %}">
+		{{ report.title }}
+	</a>
+</li>
+{% endfor %}
+{% if not reports %}
+<li class="de-emph">no issues</li>
+{% endif %}

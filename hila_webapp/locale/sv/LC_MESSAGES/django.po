@@ -1,0 +1,1704 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-11-23 22:24+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: hila/api/views.py:402
+msgid " messages in this area"
+msgstr ""
+
+#: hila/api/views.py:710 hila/public/front/templates/advice.html:104
+#: hila/public/front/templates/contact.html:137
+#: hila/public/front/templates/feedback.html:184
+#: hila/public/front/templates/info.html:140
+#: hila/public/front/templates/media.html:113
+#: hila/public/front/templates/privacy.html:145
+#: hila/public/report/templates/edit.html:163
+#: hila/public/templates/fillarikanava_base.html:202
+#: hila/public/templates/hila_base.html:178
+msgid "Read more and comment"
+msgstr "Läs mera och kommentera"
+
+#: hila/api/views.py:723
+msgid "Kun alat kirjoittaa, näytämme tässä samankaltaisia viestejä"
+msgstr "Då du börjar skriva, visar vi här liknande meddelanden"
+
+#: hila/facebookconnect/templatetags/facebook_tags.py:127
+#: hila/public/registration/templates/login.html:36
+#: hila/public/signup/templates/login.html:51
+#: hila/public/signup/templates/registration_form.html:47
+#: hila/public/templates/fillarikanava_base.html:39
+#: hila/public/templates/hila_base.html:40 templates/admin/base.html:41
+msgid "Log out"
+msgstr "Logga ut"
+
+#: hila/public/archives/views.py:7
+msgid "unread"
+msgstr "oläst"
+
+#: hila/public/archives/views.py:7
+msgid "deferred"
+msgstr "flyttad"
+
+#: hila/public/archives/views.py:7
+msgid "chatting"
+msgstr "diskussion"
+
+#: hila/public/archives/views.py:7
+msgid "need-eg"
+msgstr ""
+
+#: hila/public/archives/views.py:8
+msgid "in-progress"
+msgstr "under arbete"
+
+#: hila/public/archives/views.py:8
+msgid "testing"
+msgstr "test"
+
+#: hila/public/archives/views.py:8
+msgid "done-cbb"
+msgstr ""
+
+#: hila/public/archives/views.py:8
+msgid "resolved"
+msgstr "löst"
+
+#: hila/public/archives/templates/status_index.html:3
+msgid "Browse by status"
+msgstr "Sök med hjälp av meddelandets tillstånd"
+
+#: hila/public/browse/templates/timemap.html:2
+msgid "Browse map"
+msgstr "Sök med hjälp av karta"
+
+#: hila/public/browse/templates/timemap.html:21
+msgid "Add a new placemarker on the map by clicking here."
+msgstr "Placera en ny plats på kartan"
+
+#: hila/public/front/templates/advice.html:15
+#: hila/public/templates/fillarikanava_base.html:59
+#: hila/public/templates/hila_base.html:60
+msgid "Advice"
+msgstr "Hjälp"
+
+#: hila/public/front/templates/advice.html:17
+msgid "Courtesy"
+msgstr "Var artig"
+
+#: hila/public/front/templates/advice.html:18
+msgid "Cycling in the transit may..."
+msgstr ""
+"I trafiken kan känslorna i bland koka över, men på Fillarikanava skall man "
+"ändå uppträda artigt. Det är inte roligt att läsa osakliga meddelanden, då "
+"kan även många viktiga frågor bli utan den uppmärksamhet som de förtjänar. "
+"En ansvarsfull användare skriver inte osakligheter, och han eller hon kan "
+"också städa bort osakliga meddelanden med röda kryss och nedåtriktade tummar."
+
+#: hila/public/front/templates/advice.html:20
+msgid "Community"
+msgstr "Kollektivet"
+
+#: hila/public/front/templates/advice.html:21
+msgid "Vote, comment and discuss..."
+msgstr ""
+"Rösta, diskutera och kommentera andras förslag! Om du inte själv skriver, "
+"rösta ändå. Du kan även svara på frågor som intresserar de andra användarna. "
+"Du är till speciellt stor nytta om du kan precisera något förslag, lägga "
+"till bilder till kommentarer som saknar bild eller inplacera platslösa "
+"kommentarer på kartan. Tjänstemännen följer med diskussionen och deltar i "
+"den, men meningen är inte att varje meddelande besvaras av en tjänsteman (de "
+"måste ju också lösa problem och inte bara svara på frågor). Cyklisterna kan "
+"med hjälp av den här kanalen, som grupp, föra fram frågor som är viktiga för "
+"dem. "
+
+#: hila/public/front/templates/advice.html:23
+msgid "Constructive feedback helps"
+msgstr "Konstruktiv respons hjälper"
+
+#: hila/public/front/templates/advice.html:24
+msgid "Usefull comment and suggestions are..."
+msgstr ""
+"Ur tjänstmännen synvinkel är  meddelanden bra ifall de är exakta och gäller "
+"någon specifik fråga. Sådana meddelanden är av stor nytta, ifall ens arbete "
+"är att planera, bygga eller underhålla stadens gator. Även positiva "
+"kommentarer om platser som är bra för cyklister är välkomna. Det är bättre "
+"att istället för att allmänt kräva \"Mera cykelfiler!\" begära en cykelfil "
+"på någon specifik gata. "
+
+#: hila/public/front/templates/advice.html:26
+msgid "A picture is worth a thousand words"
+msgstr "En bild säger mera än tusen ord"
+
+#: hila/public/front/templates/advice.html:27
+msgid "Often it is difficult to explain..."
+msgstr ""
+"Det är ofta svårt att beskriva någon specifik palts, något trafikarrangemang "
+"eller liknande med ord. De är allt vanligare att mobiltelefonen har kamera. "
+"Gör det till en vana att fotografera bra och dåliga cykelmiljöer då du "
+"cyklar  runt på stan, skicka sedan dina kommentarer tillsammans med bilder "
+"till Fillarikanava. Du kan även lägga till bilder till meddelanden som andra "
+"användare har sänt in. Vi planerar också att utrusta Fillarikanava med en "
+"textmeddelandetjänst, som skulle göra det möjligt att skicka bilder som "
+"multimediameddelanden direkt från vägen."
+
+#: hila/public/front/templates/advice.html:29
+msgid "Help us to spread the Fillarikanava"
+msgstr "Hjälp oss att sprida information om Fillarikanava"
+
+#: hila/public/front/templates/advice.html:30
+msgid "You may invite your friends..."
+msgstr ""
+"Du kan lägga till en \"lucka\" till Fillarikanava i exempelvis din ägna "
+"blogg genom att sätta in en liten mojeng i samma stil som Youtub klipp. "
+"Djungelradion och virtualmarknasföring fungerar effektivt! Kom modigt med "
+"och berätta om Fillarikanava även för dina vänner, Fillarikanava jobbar "
+"nämligen för cycklisternas bästa i Helsingfors! "
+
+#: hila/public/front/templates/advice.html:30
+msgid ""
+"If you would like to see Fillarikanava in other cities don't hesitate to "
+"contact the"
+msgstr ""
+
+#: hila/public/front/templates/advice.html:30
+#: hila/public/front/templates/betafront.html:322
+#: hila/public/front/templates/betafront.html:331
+#: hila/public/front/templates/front.html:304
+#, fuzzy
+msgid "development team"
+msgstr "Wiki:"
+
+#: hila/public/front/templates/betafront.html:34
+msgid "What Fillarikanava?"
+msgstr "Vilken Fillarikanava?"
+
+#: hila/public/front/templates/betafront.html:36
+msgid "Tell: Place good solutions or difficult spots to bike on the map"
+msgstr ""
+"Berätta: Placera på kartan goda lösningar, brister och farliga platser. "
+
+#: hila/public/front/templates/betafront.html:37
+msgid "Ask: Ask the officers and fellow cyclists or suggest improvements"
+msgstr "Fråga: Fråga  tjänstemännen eller andra cyklister"
+
+#: hila/public/front/templates/betafront.html:38
+msgid "Discuss: Read, answer and vote on other people's suggestions"
+msgstr ""
+"Diskutera: Läs, kommentera och rösta på andras förslag och svara på andras "
+"frågor"
+
+#: hila/public/front/templates/betafront.html:40
+#: hila/public/front/templates/feedback.html:47
+#: hila/public/templates/fillarikanava_map.html:39
+msgid "Feedback about the service"
+msgstr "Respons om tjänsten"
+
+#: hila/public/front/templates/betafront.html:43
+#: hila/public/front/templates/feedback.html:48
+#: hila/public/templates/fillarikanava_map.html:41
+msgid ""
+"The priority feedback channel about the bugs and feature requests related to "
+"Fillarikanava is: "
+msgstr ""
+"Den primära responskanalen för att tex. anmäla fel och önskade egenskaper är:"
+
+#: hila/public/front/templates/betafront.html:59
+msgid "Close"
+msgstr ""
+
+#: hila/public/front/templates/betafront.html:61
+msgid "Seems that this is your first visit to this site."
+msgstr ""
+
+#: hila/public/front/templates/betafront.html:63
+msgid "You see a preview of a message by clicking on them on the map."
+msgstr ""
+
+#: hila/public/front/templates/betafront.html:64
+msgid "Then click on the text to see the full view."
+msgstr ""
+
+#: hila/public/front/templates/betafront.html:65
+msgid "Give thumbs up for good ideas and thumbs down for bad ones."
+msgstr ""
+
+#: hila/public/front/templates/betafront.html:66
+msgid "Comment if you have something to add."
+msgstr ""
+
+#: hila/public/front/templates/betafront.html:67
+msgid "Post pictures and place messages on the map."
+msgstr ""
+
+#: hila/public/front/templates/betafront.html:69
+msgid "Read more on the 'About' page!"
+msgstr ""
+
+#: hila/public/front/templates/betafront.html:75
+#: hila/public/front/templates/front.html:47
+#: hila/public/front/templates/talvikysely.html:61
+#: hila/public/front/templates/themed.html:61
+msgid "Latest"
+msgstr "Nya"
+
+#: hila/public/front/templates/betafront.html:77
+#: hila/public/front/templates/front.html:49
+#: hila/public/front/templates/talvikysely.html:63
+#: hila/public/front/templates/themed.html:63
+msgid "Popular"
+msgstr "Populära"
+
+#: hila/public/front/templates/betafront.html:79
+#: hila/public/front/templates/front.html:51
+#: hila/public/front/templates/talvikysely.html:65
+#: hila/public/front/templates/themed.html:65
+msgid "Official"
+msgstr "Officiella"
+
+#: hila/public/front/templates/betafront.html:80
+#: hila/public/front/templates/front.html:52
+#: hila/public/front/templates/talvikysely.html:66
+#: hila/public/front/templates/themed.html:66
+#, fuzzy
+msgid "Browse"
+msgstr "Sök med hjälp av karta"
+
+#: hila/public/front/templates/betafront.html:81
+#: hila/public/front/templates/betafront.html:252
+#: hila/public/front/templates/front.html:53
+#: hila/public/front/templates/talvikysely.html:67
+#: hila/public/front/templates/themed.html:67 util/middleware.py:135
+#: util/middleware.py:139
+msgid "Search"
+msgstr "Sök"
+
+#: hila/public/front/templates/betafront.html:108
+#: hila/public/front/templates/betafront.html:180
+#: hila/public/front/templates/front.html:80
+#: hila/public/front/templates/front.html:152
+#: hila/public/front/templates/talvikysely.html:94
+#: hila/public/front/templates/talvikysely.html:166
+#: hila/public/front/templates/themed.html:94
+#: hila/public/front/templates/themed.html:166
+#, python-format
+msgid ""
+"<a href=/user/%(commentauthorlink)s>%(commentauthor)s</a> commented %(date)s "
+"on message <a href=%(messagelink)s> %(messagetitle)s </a> by <a href=/user/%"
+"(origauthorlink)s>%(origauthor)s</a>."
+msgstr ""
+
+#: hila/public/front/templates/betafront.html:115
+#: hila/public/front/templates/betafront.html:135
+#: hila/public/front/templates/betafront.html:186
+#: hila/public/front/templates/betafront.html:206
+#: hila/public/front/templates/betafront.html:286
+#: hila/public/front/templates/front.html:87
+#: hila/public/front/templates/front.html:107
+#: hila/public/front/templates/front.html:158
+#: hila/public/front/templates/front.html:178
+#: hila/public/front/templates/front.html:259
+#: hila/public/front/templates/talvikysely.html:101
+#: hila/public/front/templates/talvikysely.html:121
+#: hila/public/front/templates/talvikysely.html:172
+#: hila/public/front/templates/talvikysely.html:192
+#: hila/public/front/templates/talvikysely.html:273
+#: hila/public/front/templates/themed.html:101
+#: hila/public/front/templates/themed.html:121
+#: hila/public/front/templates/themed.html:172
+#: hila/public/front/templates/themed.html:192
+#: hila/public/front/templates/themed.html:273
+#: hila/public/widget/templates/latest.html:27
+#: hila/public/widget/templates/popular.html:27
+msgid "points"
+msgstr "poäng"
+
+#: hila/public/front/templates/betafront.html:276
+#: hila/public/front/templates/front.html:249
+#: hila/public/front/templates/talvikysely.html:263
+#: hila/public/front/templates/themed.html:263
+#: hila/public/report/templates/edit.html:128
+#: hila/public/templates/fillarikanava_base.html:104
+#: hila/public/templates/fillarikanava_base.html:171
+#: hila/public/templates/hila_base.html:90
+#: hila/public/templates/hila_base.html:146
+#: hila/public/widget/templates/latest.html:16
+#: hila/public/widget/templates/popular.html:17
+msgid "comments"
+msgstr "kommentar"
+
+#: hila/public/front/templates/betafront.html:278
+#: hila/public/front/templates/front.html:251
+#: hila/public/front/templates/talvikysely.html:265
+#: hila/public/front/templates/themed.html:265
+#: hila/public/widget/templates/latest.html:18
+#: hila/public/widget/templates/popular.html:19
+msgid "last "
+msgstr "senaste"
+
+#: hila/public/front/templates/betafront.html:304
+#: hila/public/front/templates/front.html:277
+#: hila/public/front/templates/talvikysely.html:291
+#: hila/public/front/templates/themed.html:291
+#: hila/public/report/templates/create.html:156
+msgid "Service brought to you by:"
+msgstr ""
+
+#: hila/public/front/templates/betafront.html:306
+#: hila/public/front/templates/front.html:279
+#: hila/public/front/templates/talvikysely.html:293
+#: hila/public/front/templates/themed.html:293
+#: hila/public/report/templates/create.html:158
+msgid "In cooperation:"
+msgstr ""
+
+#: hila/public/front/templates/betafront.html:310
+#: hila/public/front/templates/front.html:283
+#: hila/public/front/templates/talvikysely.html:297
+#: hila/public/front/templates/themed.html:297
+#: hila/public/report/templates/create.html:162
+msgid "Follow us on"
+msgstr "Följ med oss"
+
+#: hila/public/front/templates/betafront.html:320
+msgid ""
+"The points on the map get clustered now so that the map loads a bit faster. "
+"Now you can find from the bottom of the individual message pages a short "
+"script. If you copy-paste the script to your blog for example, you can "
+"follow the discussion trough a widget."
+msgstr ""
+
+#: hila/public/front/templates/betafront.html:322
+#: hila/public/front/templates/betafront.html:331
+#: hila/public/front/templates/front.html:304
+msgid "Best regards"
+msgstr ""
+
+#: hila/public/front/templates/betafront.html:329
+msgid ""
+"The service is still not working as fast as it should be. Usually it takes "
+"15 to 30 seconds to load all the content on the map. We would like to thank "
+"all new and returning users of this Beta version for your patience. "
+"Currently there are more than 300 messages with locations and 600 comments "
+"in the system."
+msgstr ""
+
+#: hila/public/front/templates/betafront.html:329
+msgid "You may leave us feedback in the UserVoice"
+msgstr ""
+
+#: hila/public/front/templates/betafront.html:437
+#: hila/public/report/templates/edit.html:187
+#: hila/public/report/templates/search.html:88
+#: hila/public/templates/fillarikanava_map.html:85
+msgid "Fetching new marker data from server."
+msgstr ""
+
+#: hila/public/front/templates/betafront.html:471
+#: hila/public/front/templates/front.html:319
+#: hila/public/front/templates/talvikysely.html:316
+#: hila/public/front/templates/themed.html:316
+#: hila/public/report/templates/create.html:184
+#: hila/public/report/templates/edit.html:232
+#: hila/public/report/templates/search.html:135
+#: hila/public/report/templates/view.html:291
+msgid "Cancel"
+msgstr "Ångra"
+
+#: hila/public/front/templates/betafront.html:472
+#: hila/public/front/templates/front.html:320
+#: hila/public/front/templates/talvikysely.html:317
+#: hila/public/front/templates/themed.html:317
+#: hila/public/report/templates/create.html:185
+#: hila/public/report/templates/edit.html:233
+#: hila/public/report/templates/search.html:136
+#: hila/public/report/templates/view.html:292
+msgid "Add new place on the map"
+msgstr "Placera en ny plats på kartan"
+
+#: hila/public/front/templates/contact.html:15
+msgid "Contacts related to Fillarikanava"
+msgstr "Information om Fillarikanava"
+
+#: hila/public/front/templates/contact.html:16
+#: hila/public/front/templates/info.html:15
+msgid "Fillarikanava is a service of the city of Helsinki..."
+msgstr ""
+"Fillarikanava är en service, med vilken Helsingfors stad skapar en ny sorts "
+"direkt och öppen dialog emellan stadsborna och tjänsteinnehavarna. På "
+"Fillarikanava kan alla som är intresserade av cykelförhållandena i "
+"Helsingfors diskutera, fråga samt kommentera varandras meddelanden. De "
+"personer som ansvarar för trafikplaneringen och underhållet av gator följer "
+"med kanalen och deltar vid behov i diskussionen. "
+
+#: hila/public/front/templates/contact.html:18
+#: hila/public/front/templates/privacy.html:18
+msgid "Hila Oy"
+msgstr "HILA OY"
+
+#: hila/public/front/templates/contact.html:19
+msgid "Hila Oy in the Internet:"
+msgstr "HILA OY på internet (på finska):"
+
+#: hila/public/front/templates/contact.html:21
+#: hila/public/front/templates/info.html:36
+msgid "Blog:"
+msgstr "Blogg:"
+
+#: hila/public/front/templates/contact.html:22
+#: hila/public/front/templates/info.html:37
+msgid "Open development wiki:"
+msgstr "Wiki:"
+
+#: hila/public/front/templates/contact.html:25
+#: hila/public/front/templates/privacy.html:20
+#: hila/public/front/templates/privacy.html:31
+msgid "Contact:"
+msgstr "Kontaktuppgifter"
+
+#: hila/public/front/templates/contact.html:28
+#: hila/public/front/templates/contact.html:36
+#: hila/public/front/templates/contact.html:55
+#: hila/public/front/templates/contact.html:62
+#: hila/public/front/templates/feedback.html:29
+#: hila/public/front/templates/info.html:39
+#: hila/public/front/templates/info.html:48
+#: hila/public/front/templates/info.html:66
+#: hila/public/front/templates/info.html:73
+#: hila/public/front/templates/privacy.html:22
+#: hila/public/front/templates/privacy.html:33
+msgid "tel:"
+msgstr "tel:"
+
+#: hila/public/front/templates/contact.html:32
+#: hila/public/front/templates/info.html:44
+msgid "City of Helsinki"
+msgstr "Helsingfors stad"
+
+#: hila/public/front/templates/contact.html:34
+#: hila/public/front/templates/info.html:46
+msgid "Economic- and Planning Center of Helsinki"
+msgstr "Helsingfors ekonomi- och planeringscentral"
+
+#: hila/public/front/templates/contact.html:35
+#: hila/public/front/templates/info.html:47
+msgid "Heli Rantanen, project coordinator"
+msgstr "Heli Rantanen, projektkoordinator"
+
+#: hila/public/front/templates/contact.html:41
+#: hila/public/front/templates/info.html:52
+msgid "City Planning Department of Helsinki - Traffic Planning"
+msgstr "Helsingfors stadsplaneringskontor – avdelningen för trafikplanering"
+
+#: hila/public/front/templates/contact.html:42
+#: hila/public/front/templates/info.html:53
+msgid "Marek Salermo, traffic planner"
+msgstr "Marek Salermo, trafikplanerare"
+
+#: hila/public/front/templates/contact.html:46
+#: hila/public/front/templates/info.html:57
+msgid "Public Works Department of Helsinki - Road Maintenance"
+msgstr "Helsingfors byggnadskontor"
+
+#: hila/public/front/templates/contact.html:47
+#: hila/public/front/templates/info.html:58
+msgid "Ville Alatyppö, maintenance engineer"
+msgstr "Ville Alatyppö, underhållningsingenjör"
+
+#: hila/public/front/templates/contact.html:50
+msgid "Associates"
+msgstr "Samarbetspartner"
+
+#: hila/public/front/templates/contact.html:53
+#: hila/public/front/templates/info.html:64
+msgid "Helsinki Cyclists"
+msgstr "Helsingfors cyklister"
+
+#: hila/public/front/templates/contact.html:54
+msgid "Petri Sipilä, president of the association"
+msgstr "Petri Sipilä, ordförande"
+
+#: hila/public/front/templates/contact.html:60
+#: hila/public/front/templates/info.html:71
+msgid "Fillarihelsinki"
+msgstr "Fillarihelsinki"
+
+#: hila/public/front/templates/contact.html:61
+#: hila/public/front/templates/info.html:72
+msgid "Janne Niini, web administrator"
+msgstr "Janne Niini, upprätthållare av internetsidorna"
+
+#: hila/public/front/templates/feedback.html:15
+msgid "Feedback about the Fillarikanava service"
+msgstr "Respons på Fillarikanava"
+
+#: hila/public/front/templates/feedback.html:17
+msgid "All the feedback related to cycling..."
+msgstr ""
+"All respons om cykelförhållandena i Helsingfors skall lämnas direkt på "
+"Fillarikanava. På de responskanaler som nu beskrivs kan du lämna respons om "
+"hur Fillarikanava förverkas och verksamhet. Responsen besvaras av "
+"Fillarikanavas utvecklingsgrupp. "
+
+#: hila/public/front/templates/feedback.html:51
+msgid "Mailing list and Discussion"
+msgstr "E-postlista och diskussion"
+
+#: hila/public/front/templates/feedback.html:58
+#: hila/public/front/templates/feedback.html:61
+#: hila/public/front/templates/feedback.html:108
+msgid "Google group"
+msgstr "Google gruppen"
+
+#: hila/public/front/templates/feedback.html:68
+#: hila/public/front/templates/feedback.html:71
+#: hila/public/front/templates/feedback.html:109
+msgid "Qaiku channel"
+msgstr "Qaiku kanalen"
+
+#: hila/public/front/templates/feedback.html:77
+#: hila/public/front/templates/feedback.html:80
+#: hila/public/front/templates/feedback.html:110
+msgid "IRC channel"
+msgstr "IRC kanalen"
+
+#: hila/public/front/templates/feedback.html:86
+#: hila/public/front/templates/feedback.html:89
+#: hila/public/front/templates/feedback.html:111
+msgid "Facebook group"
+msgstr "Facebook gruppen"
+
+#: hila/public/front/templates/feedback.html:96
+#: hila/public/front/templates/feedback.html:99
+#: hila/public/front/templates/feedback.html:112
+msgid "Twitter account"
+msgstr "Twitter kontot"
+
+#: hila/public/front/templates/feedback.html:108
+msgid "Mailing list: "
+msgstr "E-postlista: "
+
+#: hila/public/front/templates/feedback.html:109
+msgid "On Qaiku: "
+msgstr "På Qaiku: "
+
+#: hila/public/front/templates/feedback.html:110
+msgid "On IRC: "
+msgstr "På IRC: "
+
+#: hila/public/front/templates/feedback.html:111
+msgid "On Facebook: "
+msgstr "På Facebook: "
+
+#: hila/public/front/templates/feedback.html:112
+msgid "On Twitter: "
+msgstr "På Twitter: "
+
+#: hila/public/front/templates/info.html:14
+msgid "About the Fillarikanava"
+msgstr "Information om Fillarikanava"
+
+#: hila/public/front/templates/info.html:16
+msgid "This service is..."
+msgstr " "
+
+#: hila/public/front/templates/info.html:17
+msgid "The aim of the Fillarikanava is..."
+msgstr " "
+
+#: hila/public/front/templates/info.html:18
+msgid "More information, logos and images can be found from the"
+msgstr "Mera information, logon och bilder finns i"
+
+#: hila/public/front/templates/info.html:18
+msgid "media package"
+msgstr "mediapaketet"
+
+#: hila/public/front/templates/info.html:34
+msgid "HILA Oy"
+msgstr "HILA OY"
+
+#: hila/public/front/templates/info.html:35
+msgid "Here you can leave us "
+msgstr "Här kan du ge oss"
+
+#: hila/public/front/templates/info.html:35
+#: hila/public/templates/fillarikanava_base.html:61
+#: hila/public/templates/hila_base.html:62
+msgid "Feedback"
+msgstr "Respons"
+
+#: hila/public/front/templates/info.html:61
+msgid "Partners"
+msgstr "Samarbetspartner"
+
+#: hila/public/front/templates/info.html:65
+msgid "Petri Sipilä, chair person"
+msgstr "Petri Sipilä, ordförande"
+
+#: hila/public/front/templates/media.html:15
+msgid "Fillarikanava for the media"
+msgstr "Fillarikanava för media"
+
+#: hila/public/front/templates/media.html:20
+msgid "News"
+msgstr "Nyheter"
+
+#: hila/public/front/templates/media.html:27
+msgid "Logo and the print material"
+msgstr "Logo och utskriftsmaterial"
+
+#: hila/public/front/templates/media.html:29
+#: hila/public/front/templates/media.html:30
+#: hila/public/front/templates/media.html:31
+#: hila/public/front/templates/media.html:32
+msgid "Logo"
+msgstr "Logo"
+
+#: hila/public/front/templates/media.html:37
+msgid "A3 size poster"
+msgstr "A3 plansch"
+
+#: hila/public/front/templates/media.html:38
+msgid "A4 size poster"
+msgstr "A4 plansch"
+
+#: hila/public/front/templates/media.html:39
+msgid "Flyer"
+msgstr "Flygblad"
+
+#: hila/public/front/templates/media.html:40
+msgid "Roll up"
+msgstr "Roll up"
+
+#: hila/public/front/templates/privacy.html:15
+msgid "Privacy Policy"
+msgstr "Registerbeskrivning"
+
+#: hila/public/front/templates/privacy.html:17
+msgid "1. Register keeper"
+msgstr "Registerupprätthållare"
+
+#: hila/public/front/templates/privacy.html:26
+msgid "2. Contact person of the register"
+msgstr "Kontaktperson som ansvarar för registret"
+
+#: hila/public/front/templates/privacy.html:28
+msgid "Name:"
+msgstr "Namn:"
+
+#: hila/public/front/templates/privacy.html:38
+msgid "3. Name of the register"
+msgstr "3. Registrets namn"
+
+#: hila/public/front/templates/privacy.html:39
+msgid "Fillarikanava user register"
+msgstr "Fillarikanavas användarregister"
+
+#: hila/public/front/templates/privacy.html:41
+msgid "4. Purpose of keeping the register"
+msgstr "Tyvärr det översättning är inte färdig (23.7.2009)"
+
+# msgstr "4. Syftet med registret"
+#: hila/public/front/templates/privacy.html:42
+msgid "Purpose of keeping the register is..."
+msgstr " "
+
+#: hila/public/front/templates/privacy.html:44
+msgid "5. Content of the register"
+msgstr " "
+
+#: hila/public/front/templates/privacy.html:45
+msgid "The information that the user gives..."
+msgstr " "
+
+#: hila/public/front/templates/privacy.html:47
+msgid "Name"
+msgstr " "
+
+# msgstr "Namn"
+#: hila/public/front/templates/privacy.html:48
+#: hila/public/registration/forms.py:9
+msgid "Username"
+msgstr " "
+
+# msgstr "Användarnamn"
+#: hila/public/front/templates/privacy.html:49
+msgid "Email-address"
+msgstr " "
+
+#: hila/public/front/templates/privacy.html:50
+msgid "Private Password"
+msgstr " "
+
+# msgstr "Lösenord"
+#: hila/public/front/templates/privacy.html:52
+msgid "This information will be kept..."
+msgstr " "
+
+#: hila/public/front/templates/privacy.html:54
+msgid "6. Regular information sources"
+msgstr " "
+
+#: hila/public/front/templates/privacy.html:55
+msgid "Register keeper will save..."
+msgstr " "
+
+#: hila/public/front/templates/privacy.html:57
+msgid "7. Transporting and the regular information outside of EU"
+msgstr " "
+
+#: hila/public/front/templates/privacy.html:58
+msgid "Register keeper will not provide..."
+msgstr " "
+
+#: hila/public/front/templates/privacy.html:60
+msgid "8. Means of securing the register"
+msgstr " "
+
+#: hila/public/front/templates/privacy.html:61
+msgid "Register is kept in electronic form..."
+msgstr " "
+
+#: hila/public/front/templates/privacy.html:63
+msgid "9. Right to inspect the information"
+msgstr " "
+
+#: hila/public/front/templates/privacy.html:64
+msgid "Registered user has right to check..."
+msgstr " "
+
+#: hila/public/front/templates/privacy.html:66
+msgid "10. Correcting information"
+msgstr " "
+
+#: hila/public/front/templates/privacy.html:67
+msgid "Registered user has right to correct..."
+msgstr " "
+
+#: hila/public/front/templates/privacy.html:69
+msgid "11. Other rights"
+msgstr " "
+
+# msgstr "11. Andra rättigheter"
+#: hila/public/front/templates/privacy.html:70
+msgid "Registered user has right to forbid..."
+msgstr " "
+
+#: hila/public/profiles/templates/create_profile.html:7
+#: hila/public/profiles/templates/edit_profile.html:9
+msgid "Submit"
+msgstr "Sänd"
+
+#: hila/public/registration/forms.py:10
+msgid "E-mail address"
+msgstr "E-postadress"
+
+#: hila/public/registration/forms.py:11
+msgid "Realname"
+msgstr "Riktigt namn"
+
+# msgstr "E-postaddress"
+#: hila/public/registration/forms.py:12
+msgid "Password"
+msgstr "Lösenord"
+
+#: hila/public/registration/forms.py:13
+msgid "Confirm password"
+msgstr "Bekräfta lösenordet"
+
+#: hila/public/registration/forms.py:20 hila/public/signup/forms.py:25
+msgid "This username is already taken. Please choose another."
+msgstr "Användarnamnet existerar redan. Var vänlig välj ett annat."
+
+#: hila/public/registration/forms.py:27
+msgid "E-mail address already in use."
+msgstr "E-postadressen används redan."
+
+#: hila/public/registration/forms.py:32
+msgid "Password and Confirm password must match."
+msgstr "Lösenordet och bekräftelsen måste vara identiska"
+
+#: hila/public/registration/templates/logged_out.html:4
+#: hila/public/signup/templates/logout.html:4
+msgid "You have signed out."
+msgstr "Du har loggat ut"
+
+#: hila/public/registration/templates/logged_out.html:5
+#: hila/public/signup/templates/logout.html:5
+msgid "Thanks for the visit, wellcome again!"
+msgstr "Tack för ditt besök, välkommen åter!"
+
+#: hila/public/registration/templates/login.html:9
+#: hila/public/signup/templates/login.html:10
+#: hila/public/signup/templates/password_reset_complete.html:12
+msgid "Log in"
+msgstr "Logga in"
+
+#: hila/public/registration/templates/login.html:14
+#: hila/public/signup/templates/login.html:18
+msgid "Sign in"
+msgstr "Logga in"
+
+#: hila/public/registration/templates/login.html:26
+#: hila/public/signup/templates/login.html:41
+#: hila/public/signup/templates/registration_form.html:37
+msgid "Howdy"
+msgstr "Hej då"
+
+#: hila/public/registration/templates/login.html:48
+#: hila/public/signup/templates/login.html:63
+#: hila/public/signup/templates/registration_form.html:59
+msgid "Sign out by clicking here"
+msgstr "Logga ut"
+
+#: hila/public/registration/templates/profile.html:9
+msgid "Wellcome,"
+msgstr "Välkommen"
+
+#: hila/public/registration/templates/registration.html:12
+#: hila/public/signup/templates/registration_form.html:19
+msgid "Register"
+msgstr "Bli användare"
+
+#: hila/public/registration/templates/registration_complete.html:4
+msgid ""
+"Thank you for registering, we have sent you an e-mail containing an "
+"activation link."
+msgstr ""
+"Tack för att du registrerat dig, vi har skickat en aktiveringslänk med e-"
+"post."
+
+#: hila/public/report/templates/create.html:70
+msgid "New message"
+msgstr "Nytt meddelande"
+
+#: hila/public/report/templates/create.html:78
+#: hila/public/report/templates/create.html:81
+#, fuzzy
+msgid "Your message"
+msgstr "Nytt meddelande"
+
+#: hila/public/report/templates/create.html:78
+#: hila/public/report/templates/view.html:234
+#, fuzzy
+msgid "will be registered with your login name "
+msgstr "Ditt meddelande kommer att registreras med dit användarnamn"
+
+#: hila/public/report/templates/create.html:81
+#: hila/public/report/templates/view.html:197
+msgid "will be saved anonymously"
+msgstr ""
+
+#: hila/public/report/templates/create.html:81
+#: hila/public/report/templates/view.html:197
+msgid "If you would like to leave"
+msgstr ""
+
+#: hila/public/report/templates/create.html:81
+#, fuzzy
+msgid "the message"
+msgstr "Nytt meddelande"
+
+#: hila/public/report/templates/create.html:81
+#: hila/public/report/templates/view.html:197
+msgid "with name please, "
+msgstr ""
+
+#: hila/public/report/templates/create.html:81
+#: hila/public/report/templates/create.html:134
+#: hila/public/report/templates/view.html:197
+#: hila/public/report/templates/view.html:205
+#: hila/public/templates/fillarikanava_base.html:40
+#: hila/public/templates/hila_base.html:41
+msgid "Login"
+msgstr "Logga in"
+
+#: hila/public/report/templates/create.html:81
+#: hila/public/report/templates/create.html:134
+#: hila/public/report/templates/view.html:193
+#: hila/public/report/templates/view.html:197
+#: hila/public/report/templates/view.html:205
+msgid "or"
+msgstr ""
+
+#: hila/public/report/templates/create.html:81
+#: hila/public/report/templates/create.html:134
+#: hila/public/report/templates/view.html:197
+#: hila/public/report/templates/view.html:205
+#: hila/public/templates/fillarikanava_base.html:39
+#: hila/public/templates/hila_base.html:40
+msgid "Sign up"
+msgstr "Registrera"
+
+#: hila/public/report/templates/create.html:85
+#: hila/public/report/templates/edit.html:39
+#: hila/public/report/templates/view.html:213
+msgid "Add a new placemarker on the map."
+msgstr "Lägg till en ny plats på kartan"
+
+#: hila/public/report/templates/create.html:90
+#: hila/public/report/templates/edit.html:43
+#: hila/public/report/templates/view.html:217
+msgid "Place a marker by clicking on the map."
+msgstr "Placera ditt meddelande på kartan genom att trycka på kartan."
+
+#: hila/public/report/templates/create.html:97
+#: hila/public/report/templates/edit.html:49
+#: hila/public/report/templates/view.html:225
+msgid "Upload a new image."
+msgstr "Ladda upp en ny bild"
+
+#: hila/public/report/templates/create.html:102
+#: hila/public/report/templates/edit.html:53
+#: hila/public/report/templates/view.html:229
+msgid "Select file to upload."
+msgstr "Välj filen som skall laddas upp"
+
+#: hila/public/report/templates/create.html:109
+msgid ""
+"Maximum length of a message is 140 characters. If you want to write more you "
+"can comment on your message after saving it."
+msgstr ""
+
+#: hila/public/report/templates/create.html:116
+#: hila/public/report/templates/edit.html:66
+msgid "Characters remaining: "
+msgstr "Tecken kvar: "
+
+#: hila/public/report/templates/create.html:118
+#: hila/public/report/templates/edit.html:75
+msgid "Create new"
+msgstr "Spara meddelande"
+
+#: hila/public/report/templates/create.html:130
+#: hila/public/report/templates/edit.html:84
+msgid "When you start writing, we'll show similar items here"
+msgstr "Då du börjar skriva, visas liknande ämnen här"
+
+#: hila/public/report/templates/create.html:133
+msgid "Because of spamming, anonymous messages are not allowed at the moment."
+msgstr ""
+
+#: hila/public/report/templates/create.html:143
+#, python-format
+msgid ""
+" Leaving messages related to the theme <b>%(tag)s</b> is not allowed at this "
+"time."
+msgstr ""
+
+#: hila/public/report/templates/create.html:145
+msgid "Please leave new messages through the default message creation page."
+msgstr ""
+
+#: hila/public/report/templates/create.html:148
+msgid "You can still comment existing messages on this theme."
+msgstr ""
+
+#: hila/public/report/templates/create.html:186
+#: hila/public/report/templates/edit.html:234
+#: hila/public/report/templates/search.html:133
+#: hila/public/report/templates/view.html:293
+msgid "Address not found:"
+msgstr "Adressen kan inte hittas:"
+
+#: hila/public/report/templates/edit.html:3
+#: hila/public/report/templates/view.html:90
+#: hila/public/report/templates/view.html:164
+msgid "Edit"
+msgstr ""
+
+#: hila/public/report/templates/edit.html:36
+msgid "Type your message into the box."
+msgstr "Skriv ditt meddelande i fönstret"
+
+#: hila/public/report/templates/edit.html:70
+msgid "Warning, you are not signed in"
+msgstr ""
+"Du är inte inloggad, ditt meddelande kommer att registreras som anonymt"
+
+#: hila/public/report/templates/edit.html:72
+msgid "Your message will be registered with your login name "
+msgstr "Ditt meddelande kommer att registreras med dit användarnamn"
+
+#: hila/public/report/templates/edit.html:130
+#: hila/public/templates/fillarikanava_base.html:106
+#: hila/public/templates/fillarikanava_base.html:173
+#: hila/public/templates/hila_base.html:92
+#: hila/public/templates/hila_base.html:148
+msgid "comment"
+msgstr "kommentar"
+
+#: hila/public/report/templates/edit.html:133
+msgid "Click to read more and comment"
+msgstr "Läs mera och kommentera"
+
+#: hila/public/report/templates/edit.html:143
+#: hila/public/templates/fillarikanava_base.html:130
+#: hila/public/templates/hila_base.html:105
+msgid "Click here to zoom in"
+msgstr ""
+
+#: hila/public/report/templates/edit.html:164
+#: hila/public/templates/fillarikanava_base.html:203
+#: hila/public/templates/hila_base.html:179
+msgid "Comment"
+msgstr "kommentera"
+
+#: hila/public/report/templates/search.html:3
+msgid "New messge"
+msgstr "Nytt meddelande"
+
+#: hila/public/report/templates/search.html:42
+msgid "Search messages"
+msgstr "Söka meddelande"
+
+#: hila/public/report/templates/search.html:46
+#, fuzzy
+msgid "Search words"
+msgstr "Sök"
+
+#: hila/public/report/templates/search.html:49
+#: hila/public/templates/fillarikanava_base.html:72
+#, fuzzy
+msgid "search"
+msgstr "Sök"
+
+#: hila/public/report/templates/view.html:36
+msgid "Previous:"
+msgstr ""
+
+#: hila/public/report/templates/view.html:43
+#, fuzzy
+msgid "Next:"
+msgstr "Namn:"
+
+#: hila/public/report/templates/view.html:47
+msgid "Topic"
+msgstr "Meddelande"
+
+#: hila/public/report/templates/view.html:94
+#: hila/public/report/templates/view.html:168
+msgid "Delete"
+msgstr ""
+
+#: hila/public/report/templates/view.html:115
+#: hila/public/widget/templates/single.html:60
+msgid "Comments"
+msgstr "Kommentarer"
+
+#: hila/public/report/templates/view.html:190
+msgid "Comment on this message"
+msgstr ""
+
+#: hila/public/report/templates/view.html:193
+#, fuzzy
+msgid "leave a new message"
+msgstr "Lämna ett nytt meddelande"
+
+#: hila/public/report/templates/view.html:197
+#: hila/public/report/templates/view.html:234
+#, fuzzy
+msgid "Your comment"
+msgstr "kommentar"
+
+#: hila/public/report/templates/view.html:197
+#, fuzzy
+msgid "the comment"
+msgstr "kommentar"
+
+#: hila/public/report/templates/view.html:200
+msgid "Because of spamming, anonymous commenting has been disabled."
+msgstr ""
+
+#: hila/public/report/templates/view.html:201
+msgid "Registered users can continue commenting as before."
+msgstr ""
+
+#: hila/public/report/templates/view.html:236
+msgid "Send"
+msgstr "Skicka"
+
+#: hila/public/report/templates/view.html:243
+#, python-format
+msgid ""
+"Commenting on messages related to the theme <b>%(tag)s</b> is not allowed at "
+"the moment."
+msgstr ""
+
+#: hila/public/report/templates/view.html:249
+#, fuzzy
+msgid "Follow the discussion"
+msgstr "Följ med oss"
+
+#: hila/public/report/templates/view.html:250
+msgid ""
+"If you're tired of visiting this page, why not add a little widget to your "
+"blog or whatever webiste you have?"
+msgstr ""
+
+#: hila/public/report/templates/view.html:251
+msgid "It's extremely easy."
+msgstr ""
+
+#: hila/public/report/templates/view.html:252
+msgid "Just copy & paste the following code on to your website's html:"
+msgstr ""
+
+#: hila/public/report/templates/view.html:255
+msgid "Here`s a widget showing fillarikanava message "
+msgstr ""
+
+#: hila/public/report/templates/view.html:255
+msgid "but unfortunately your browser does not support iframes."
+msgstr ""
+
+#: hila/public/signup/forms.py:15
+msgid "username"
+msgstr "användarnamn"
+
+#: hila/public/signup/forms.py:16 hila/public/signup/forms.py:44
+msgid "email address"
+msgstr "e-postadress"
+
+#: hila/public/signup/forms.py:17
+msgid "password"
+msgstr "lösenord"
+
+#: hila/public/signup/forms.py:18
+msgid "password (again)"
+msgstr "lösenord (bekräftelse)"
+
+#: hila/public/signup/forms.py:30
+msgid "You must type the same password each time"
+msgstr "Du bör skriva samma lösenord båda gångerna"
+
+#: hila/public/signup/forms.py:40
+msgid ""
+"This email address is already in use. Please supply a different email "
+"address."
+msgstr "E-postadressen existerar redan. Var vänlig skriv en annan adress"
+
+#: hila/public/signup/forms.py:50
+msgid ""
+"That e-mail address doesn't have an associated user account. Are you sure "
+"you've registered?"
+msgstr ""
+
+#: hila/public/signup/forms.py:55
+msgid "Your account has already been activated."
+msgstr ""
+
+#: hila/public/signup/models.py:82
+msgid "user"
+msgstr "användare"
+
+#: hila/public/signup/models.py:83
+msgid "activation key"
+msgstr "aktiveringsnyckel"
+
+#: hila/public/signup/models.py:88
+msgid "registration profile"
+msgstr "användarprofil"
+
+#: hila/public/signup/models.py:89
+msgid "registration profiles"
+msgstr "användarprofiler"
+
+#: hila/public/signup/templates/activate.html:6
+msgid "Account activated"
+msgstr ""
+
+#: hila/public/signup/templates/activate.html:7
+msgid "Congratulations, your account has been activated!"
+msgstr ""
+
+#: hila/public/signup/templates/activate.html:9
+#, python-format
+msgid ""
+"\n"
+"        Now you can <a href=\"%(login_url)s\">login</a> to your account.\n"
+"        "
+msgstr ""
+
+#: hila/public/signup/templates/activate.html:13
+msgid "Your activation key has expired, please register again."
+msgstr ""
+
+#: hila/public/signup/templates/activation_request.html:4
+#: hila/public/signup/templates/activation_request.html:8
+msgid "Activation e-mail request"
+msgstr ""
+
+#: hila/public/signup/templates/activation_request.html:10
+#, fuzzy
+msgid ""
+"Haven't received an activation email? Enter your e-mail address below, and "
+"we'll e-mail you a new one."
+msgstr ""
+"Har du glömt ditt lösenord? Ange din e-postadress så skickar vi "
+"instruktioner hur man byter lösenord."
+
+#: hila/public/signup/templates/activation_request.html:14
+#: hila/public/signup/templates/password_reset_form.html:14
+msgid "E-mail address:"
+msgstr "E-postadress:"
+
+#: hila/public/signup/templates/activation_request.html:14
+#, fuzzy
+msgid "Resend"
+msgstr "Skicka"
+
+#: hila/public/signup/templates/activation_request_sent.html:3
+#: hila/public/signup/templates/activation_request_sent.html:6
+#, fuzzy
+msgid "Activation e-mail sent"
+msgstr "aktiveringsnyckel"
+
+#: hila/public/signup/templates/activation_request_sent.html:7
+#, fuzzy
+msgid "We have sent you an e-mail containing your activation key."
+msgstr ""
+"Tack för att du registrerat dig, vi har skickat en aktiveringslänk med e-"
+"post."
+
+#: hila/public/signup/templates/login.html:12
+#, fuzzy
+msgid "Use your Fillarikanava account"
+msgstr "Information om Fillarikanava"
+
+#: hila/public/signup/templates/login.html:22
+msgid " Don't have an account? "
+msgstr ""
+
+#: hila/public/signup/templates/login.html:22
+#, fuzzy
+msgid "Create one!"
+msgstr "Spara meddelande"
+
+#: hila/public/signup/templates/login.html:23
+#, fuzzy
+msgid "Forgotten your password?"
+msgstr "Byt mitt lösenord"
+
+#: hila/public/signup/templates/login.html:23
+msgid "Recover it here."
+msgstr ""
+
+#: hila/public/signup/templates/login.html:30
+msgid "Use your Facebook account"
+msgstr ""
+
+#: hila/public/signup/templates/password_change_done.html:3
+#: hila/public/signup/templates/password_change_done.html:7
+msgid "Password change successful"
+msgstr "Bytet av lösenord lyckades"
+
+#: hila/public/signup/templates/password_change_done.html:9
+msgid "Your password was changed."
+msgstr "Ditt lösenord är bytt"
+
+#: hila/public/signup/templates/password_change_form.html:3
+#: hila/public/signup/templates/password_change_form.html:7
+msgid "Password change"
+msgstr "Byt lösenord"
+
+#: hila/public/signup/templates/password_change_form.html:9
+msgid ""
+"Please enter your old password, for security's sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr ""
+
+#: hila/public/signup/templates/password_change_form.html:14
+msgid "Old password:"
+msgstr "Ditt gamla lösenord"
+
+#: hila/public/signup/templates/password_change_form.html:16
+#: hila/public/signup/templates/password_reset_confirm.html:16
+msgid "New password:"
+msgstr "Ditt nya lösenord"
+
+#: hila/public/signup/templates/password_change_form.html:18
+#: hila/public/signup/templates/password_reset_confirm.html:18
+msgid "Confirm password:"
+msgstr "Bekräfta det nya lösenordet"
+
+#: hila/public/signup/templates/password_change_form.html:20
+#: hila/public/signup/templates/password_reset_confirm.html:19
+msgid "Change my password"
+msgstr "Byt mitt lösenord"
+
+#: hila/public/signup/templates/password_reset_complete.html:4
+#: hila/public/signup/templates/password_reset_complete.html:8
+msgid "Password reset complete"
+msgstr "Bytet av lösenord lyckades"
+
+#: hila/public/signup/templates/password_reset_complete.html:10
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr "Ditt lösenord är bytt, du kan logga in nu"
+
+#: hila/public/signup/templates/password_reset_confirm.html:4
+#: hila/public/signup/templates/password_reset_form.html:4
+#: hila/public/signup/templates/password_reset_form.html:8
+msgid "Password reset"
+msgstr "Byt lösenord"
+
+#: hila/public/signup/templates/password_reset_confirm.html:10
+msgid "Enter new password"
+msgstr "Skriv ditt nya lösenord"
+
+#: hila/public/signup/templates/password_reset_confirm.html:12
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+
+#: hila/public/signup/templates/password_reset_confirm.html:24
+msgid "Password reset unsuccessful"
+msgstr "Bytet av lösenord misslyckades"
+
+#: hila/public/signup/templates/password_reset_confirm.html:26
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+
+#: hila/public/signup/templates/password_reset_done.html:4
+#: hila/public/signup/templates/password_reset_done.html:8
+msgid "Password reset successful"
+msgstr "Bytet av lösenord lyckades"
+
+#: hila/public/signup/templates/password_reset_done.html:10
+msgid ""
+"We've e-mailed you instructions for setting your password to the e-mail "
+"address you submitted. You should be receiving it shortly."
+msgstr "Vi har skickat instruktioner om hur man byter lösenord till din e-post"
+
+#: hila/public/signup/templates/password_reset_email.html:2
+msgid "You're receiving this e-mail because you requested a password reset"
+msgstr ""
+"Du får det här meddelandet eftersom du har bett om att få byta ditt lösenord"
+
+#: hila/public/signup/templates/password_reset_email.html:3
+#, python-format
+msgid "for your user account at %(site_name)s"
+msgstr "för ditt konto på %(site_name)s servicen"
+
+#: hila/public/signup/templates/password_reset_email.html:5
+msgid "Please go to the following page and choose a new password:"
+msgstr "Tryck på länken och välj ett nytt lösenord "
+
+#: hila/public/signup/templates/password_reset_email.html:9
+msgid "Your username, in case you've forgotten:"
+msgstr "Ditt användarnamn, ifall du har glömt det:"
+
+#: hila/public/signup/templates/password_reset_email.html:11
+msgid "Thanks for using our site!"
+msgstr "Tack för att du använder Fillarikanava!"
+
+#: hila/public/signup/templates/password_reset_form.html:10
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll e-mail "
+"instructions for setting a new one."
+msgstr ""
+"Har du glömt ditt lösenord? Ange din e-postadress så skickar vi "
+"instruktioner hur man byter lösenord."
+
+#: hila/public/signup/templates/password_reset_form.html:14
+msgid "Reset my password"
+msgstr "Byt mitt lösenord"
+
+#: hila/public/signup/templates/registration_complete.html:5
+msgid "Your account is not yet activated. Check your email for activation."
+msgstr ""
+"Ditt konto är inte ännu aktiverat. Titta i din e-post för ett "
+"aktiveringsmeddelande."
+
+#: hila/public/signup/templates/registration_form.html:6
+#, fuzzy
+msgid "Registration"
+msgstr "Bli användare"
+
+#: hila/public/signup/templates/registration_form.html:8
+msgid "* Marked fields are required."
+msgstr ""
+
+#: hila/public/signup/templates/registration_form.html:10
+msgid ""
+"Username can be up to 30 characters long. Allowed characters for username: "
+"upper and lower case letter, numbers and underscore."
+msgstr ""
+
+#: hila/public/signup/templates/registration_form.html:24
+msgid "Did you know that you can use Fillarikanava with your Facebook account?"
+msgstr ""
+
+#: hila/public/signup/templates/registration_form.html:25
+msgid ""
+"When using Fillarikanava with your Facebook account your name in Facebook "
+"will be shown as your username when you leave a new message or comment on "
+"old ones. To login click the Facebook connect -button! "
+msgstr ""
+
+#: hila/public/signup/templates/registration_form.html:26
+msgid ""
+"We are sorry that this does not work for new users - if you have logged in "
+"successfully with your fb login, you can still do that, but new users will "
+"get an error."
+msgstr ""
+
+#: hila/public/signup/templates/registration_form.html:27
+msgid "We're trying to fix this."
+msgstr ""
+
+#: hila/public/templates/fillarikanava_base.html:26
+#: hila/public/templates/hila_base.html:24
+msgid "Front"
+msgstr "Första sidan"
+
+#: hila/public/templates/fillarikanava_base.html:57
+#: hila/public/templates/hila_base.html:58
+msgid "Privacy"
+msgstr "Registerbeskrivning"
+
+#: hila/public/templates/fillarikanava_base.html:58
+#: hila/public/templates/hila_base.html:59
+msgid "About"
+msgstr "Information"
+
+#: hila/public/templates/fillarikanava_base.html:60
+#: hila/public/templates/hila_base.html:61
+msgid "Media"
+msgstr "Mediepaket"
+
+#: hila/public/templates/fillarikanava_base.html:71
+msgid "hello"
+msgstr ""
+
+#: hila/public/templates/fillarikanava_base.html:122
+msgid "and"
+msgstr ""
+
+#: hila/public/templates/fillarikanava_base.html:125
+#, fuzzy
+msgid "other"
+msgstr "månad"
+
+#: hila/public/templates/fillarikanava_base.html:127
+msgid "others"
+msgstr ""
+
+#: hila/public/templates/fillarikanava_base.html:149
+#: hila/public/templates/hila_base.html:124
+#, fuzzy
+msgid "Comments to message"
+msgstr "Nytt meddelande"
+
+#: hila/public/templates/fkfeed_title.html:2
+#, fuzzy
+msgid "Comment on message"
+msgstr "Nytt meddelande"
+
+#: hila/public/widget/templates/latest.html:2
+#: hila/public/widget/templates/popular.html:2
+msgid "Latest messages"
+msgstr "Nytt meddelande"
+
+#: hila/public/widget/templates/popular.html:6
+msgid ""
+"Most voted messages in <a href='http://fillarikanava.hel.fi' target='_new' "
+">Fillarikanava</a>"
+msgstr ""
+
+#: hila/public/widget/templates/single.html:32
+#: hila/public/widget/templates/single.html:92
+msgid "By"
+msgstr "Skriven av"
+
+#: hila/public/widget/templates/single.html:83
+msgid "place added:"
+msgstr "Platsen är sparad:"
+
+#: hila/public/widget/templates/single.html:86
+msgid "Image added."
+msgstr "Bilden är sparad."
+
+#: hila/public/widget/templates/single.html:123
+msgid "Read more, vote and comment at Fillarikanava."
+msgstr "Läs mera och kommentera"
+
+#: hila/roundup_utils/__init__.py:487 hila/roundup_utils/__init__.py:535
+#: hila/roundup_utils/__init__.py:773 hila/roundup_utils/__init__.py:824
+#, python-format
+msgid "This message by has been removed by %(actor)s."
+msgstr ""
+
+#: templates/admin/base.html:41
+#, fuzzy
+msgid "Welcome,"
+msgstr "Välkommen"
+
+#: templates/admin/base.html:41
+msgid "Documentation"
+msgstr ""
+
+#: templates/admin/base.html:41
+#, fuzzy
+msgid "Change password"
+msgstr "Byt mitt lösenord"
+
+#: templates/admin/base.html:46
+msgid "Home"
+msgstr ""
+
+#: util/middleware.py:88
+msgid "Choose date"
+msgstr ""
+
+#: util/middleware.py:142
+msgid "Filter by time:"
+msgstr ""
+
+#: util/middleware.py:143
+msgid "from [preposition]"
+msgstr ""
+
+#: util/middleware.py:145
+msgid "from [postposition]"
+msgstr ""
+
+#: util/middleware.py:146
+msgid "to [preposition]"
+msgstr ""
+
+#: util/middleware.py:148
+msgid "to [postposition]"
+msgstr ""
+
+#: util/middleware.py:151
+msgid "Filter by questionnaires:"
+msgstr ""
+
+#: util/middleware.py:155
+msgid "All"
+msgstr ""
+
+#: util/misc_utils.py:49
+msgid "year"
+msgid_plural "years"
+msgstr[0] "år"
+msgstr[1] "år"
+
+#: util/misc_utils.py:50
+msgid "month"
+msgid_plural "months"
+msgstr[0] "månad"
+msgstr[1] "månader"
+
+#: util/misc_utils.py:51
+msgid "week"
+msgid_plural "weeks"
+msgstr[0] "vecka"
+msgstr[1] "veckor"
+
+#: util/misc_utils.py:52
+msgid "day"
+msgid_plural "days"
+msgstr[0] "dag"
+msgstr[1] "dagar"
+
+#: util/misc_utils.py:58
+#, python-format
+msgid "1 minute ago"
+msgid_plural "%(minutes)d minutes ago"
+msgstr[0] "1 minut sedan"
+msgstr[1] "%(minutes)d minuter sedan"
+
+#: util/misc_utils.py:62
+msgid "less than 1 minute ago"
+msgstr "mindre än 1 minut sedan"
+
+#: util/misc_utils.py:64
+#, python-format
+msgid "1 hour ago"
+msgid_plural "%(hours)d hours ago"
+msgstr[0] "en timme sedan"
+msgstr[1] "%(hours)d timmar sedan"
+
+#: util/misc_utils.py:68
+#, python-format
+msgid "yesterday at %s"
+msgstr "igår klo %s"
+
+#: util/misc_utils.py:79
+#, python-format
+msgid "%(number)d %(type)s ago"
+msgstr "%(number)d %(type)s sedan"
+
+#~ msgid "Latest responses from the officers will be shown here..."
+#~ msgstr "De senaste meddelandena från tjänstemännen kommer hit..."
+
+#~ msgid "You can move the marker..."
+#~ msgstr "Du kan flytta kursorn genom att röra på musen"
+
+#~ msgid "City officers messages will be shown with hihghlight..."
+#~ msgstr "Tjänstemännens svar visas på gult botten..."
+
+#~ msgid "Write a comment"
+#~ msgstr "Skriv en kommentar"
+
+#~ msgid "Archive"
+#~ msgstr "Arkiv"
+
+#~ msgid "Map"
+#~ msgstr "Karta"
+
+#~ msgid "Helsinki city planning office"
+#~ msgstr "Helsingfors stadsplaneringskontor"
+
+#~ msgid "Check"
+#~ msgstr "Se"
+
+#~ msgid "Contact"
+#~ msgstr "Kontaktinformation"
+
+#~ msgid "Administration and development"
+#~ msgstr "Administration och utveckling"
+
+#~ msgid " Username:"
+#~ msgstr "Användarnamn:"
+
+#~ msgid "Logout"
+#~ msgstr "Logga ut"
+
+#~ msgid "Do you cycle in Helsinki?"
+#~ msgstr "Cyklar du i Helsingfors?"
+
+#~ msgid "Let's make Helsinki a cycling city!"
+#~ msgstr "Låt oss göra Helsingfors till en cykelstad!"
+
+#~ msgid "In your opinion..."
+#~ msgstr ""
+#~ "Vad anser du är det viktigaste? Varje cyklist känner bäst sina egna "
+#~ "rutter. De personer som ansvarar för trafikplaneringen och "
+#~ "gatuunderhållet följer med kanalen och svarar vid behov. De förslag som "
+#~ "blivit kommenterade och fått mest röster får den största uppmärksamheten. "
+
+#~ msgid "Fillarikanava is..."
+#~ msgstr ""
+#~ "Fillarikanava är en mötesplats om cykeltrafik för Helsingfors stads "
+#~ "invånare och tjänstemän. De personer som ansvarar för trafikplaneringen "
+#~ "och gatuunderhållet följer med diskussionen och deras svar känner du igen "
+#~ "från den gula markeringsfärgen samt stadens vapen. "

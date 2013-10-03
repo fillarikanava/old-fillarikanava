@@ -1,0 +1,21 @@
+Xapian + snowball testidemo
+
+Tarvitset Ubuntuun paketit:
+python
+pygame
+xapian
+
+xapianin bindingit tarvitaan kanssa. Snowball-stemmer tulee kait 
+xapianin paketissa. Jos ei tule, hae verkosta snowball-python paketti ja 
+instaa se.
+
+Kun kaikki on paikallaan, aja terminaalista
+
+./xapian-build-database-finnish.py test_data/fillari_clean.txt
+
+ja sitten testaa
+
+./xapian-test-database-finnish.py
+
+
+Kysymykset: Reima 046 899 1716

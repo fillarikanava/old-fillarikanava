@@ -1,0 +1,368 @@
+{% extends "front.html" %}
+{% load report %}
+{% block title %} {{ issue.title }} :: {{ block.super }}{% endblock %}
+
+{% block navigation %}
+{% activetab "subnav" "archives" %}
+{{ block.super }}
+{% endblock %}
+
+{% comment %}
+{% block mainpanel %}
+
+
+<!-- MAP -->	
+<div>   
+	<div id="map" style="width: 469px; height: 469px; margin:24px 0 0 0;"></div>
+	<div id="newmarkerbutton"></div>
+</div>
+		
+<div align="center"></div>
+<div id="content_bottom"></div>
+
+
+<!-- contents -->
+{% endblock %}
+
+{% endcomment %}
+{% block sidebar %}
+<!--[if lte IE 7]>
+<div style="height:28px;"></div>
+<![endif]-->
+
+<div class="reportwrapper">
+{% if prev.options %}
+<p>
+{% trans "Previous:" %}
+<a href="{{prev.options.link}}">{{prev.title}}</a>
+</p>
+{% endif %}
+
+{% if next.options %}
+<p>
+{% trans "Next:" %}
+<a href="{{next.options.link}}">{{next.title}}</a>
+</p>
+{% endif %}
+<h3 class="ongelma">{% trans "Topic" %}</h3>
+	<div class="reportcontent display_{{ issue.options.organisation.name|lower|default:"none" }}">
+
+		{% if issue.options.thumburl %}
+			<div id="image_0_large" style="display:none;" ></div>
+			<div id="image_0_small" style="width: 80px; height: 80px; padding : 0px; border:1px solid black;float:right;background-color:#FFFFFF">
+				<a href="javascript:showImage('image_0', '{{ issue.options.imageurl}}');"><img src="{{ issue.options.thumburl }}" style="padding : 0px; "/></a>
+			</div>
+		{% endif %}
+
+		<p>
+		{{ issue.title|urlize }}
+				
+<!--		<p class="postedby">-->
+		<div class="metadata">
+			{{ issue.options.author }}
+
+			{% if issue.options.organisation.screenname %}
+				{% if issue.options.organisation.linkurl %} 
+					<a href="{{ message.options.organisation.linkurl }}"> 
+				{% endif %}
+
+				{{ issue.options.organisation.screenname }}
+				
+				{% if issue.options.organisation.linkurl %}
+					</a>
+				{% endif %}
+			{% endif %}
+
+			, {{ issue.options.smartdate|default:"" }}
+
+			{% if issue.options.points %}
+				{% for place in issue.options.points %}
+					, <img src="{{ MEDIA_URL }}/images/merkki_sin.png" alt="comment"/> {{ place.address }}
+				{% endfor %}
+			{% endif %}
+		</div>
+		</p>
+		<br>
+		
+		{% if user.is_authenticated %}
+			{% if user|in_group:"Kaupunkisuunnitteluvirasto,Rakennusvirasto,HILA" or user|is_author:issue.options.author_id %}
+				<form action="{% url report_edit issue.options.id %}" method="GET" accept-charset="utf-8">{% csrf_token %}
+					<input type="submit" value="{% trans "Edit" %}">
+				</form>
+
+				<form action="{% url report_delete issue.options.id %}" method="POST" accept-charset="utf-8">{% csrf_token %}{% csrf_token %}
+					<input type="submit" value="{% trans "Delete" %}">
+				</form>
+			{% endif %}
+		{% endif %}
+	</div>
+
+<!--Activate again when the voting starts to work
+	<div id="issue_voting">
+		<span id="issue_{{ issue.options.id }}_score"> </span>
+		<span id="comment_-1_buttonFor"></span>
+		<span id="issue_{{ issue.options.id }}_votesFor" style="color:#33CC33;"></span> 
+		<span id="comment_-1_buttonAgainst"></span>
+		<span id="issue_{{ issue.options.id }}_votesAgainst" style="color:red;"></span>
+	</div>
+-->	
+
+
+</div>
+<div class="commentswrapper">
+{% if  issue.options.comments %} 
+
+	<h3>{{ issue.options.commentcount }} {% trans "Comments" %}</h3>
+
+	<div class="commentcontent">
+		{% for comment in issue.options.comments %}
+			<div class="comment display_{{ comment.organisation.name|lower|default:"" }}" id="comment_{{ comment.id }}" >
+				{% if comment.place %}
+					<div id="map_{{ comment.id }}"  style="width: 80px; height: 80px; border:1px solid black;float:right;overflow:hidden;"></div>
+				{% endif %}
+
+				{% if comment.thumburl %}
+					<div id="image_{{ comment.id }}_large" style="display:none;" ></div>
+					<div id="image_{{ comment.id }}_small" style="width: 80px; height: 80px; padding : 0px; border:1px solid black;float:right;background-color:#FFFFFF">
+						<a href="javascript:showImage('image_{{ comment.id }}', '{{ comment.imageurl}}');"><img src="{{ comment.thumburl }}" style="padding : 0px; "/></a>
+					</div>
+				{% endif %}
+
+<!--				{% if comment.organisation.logo %}-->
+<!--					<img src="{{ comment.organisation.logo }}" alt="organization" style:"float:left;"/>-->
+<!--				{% endif %}-->
+
+					<p>
+					{{ comment.text|urlize|linebreaksbr }}
+					
+					<div class="metadata">
+					{{ comment.author }}
+
+					{% if comment.organisation.screenname %}
+						{% if comment.organisation.linkurl %} 
+							<a href="{{ comment.organisation.linkurl }}">
+						{% endif %}
+							{{ comment.organisation.screenname }}
+						{% if comment.organisation.linkurl %}
+							</a>
+						{% endif %}
+					{% endif %}
+					
+					{% if comment.smartdate %}
+					, {{ comment.smartdate}}
+					{% endif %}
+						
+					{% if comment.point.address %}
+						, <img src="{{ MEDIA_URL }}/images/merkki_sin.png" alt="comment"/> {{ comment.point.address }}
+					{% endif %}
+				</div>
+				</p>
+
+				{% if user.is_authenticated %}
+					{% if user|in_group:"Kaupunkisuunnitteluvirasto,HILA" or user|is_author:issue.options.author_id %}
+						<form action="{% url comment_report_edit issue.options.id comment.id %}" method="GET" accept-charset="utf-8">{% csrf_token %}
+							<input type="submit" value="{% trans "Edit" %}">
+						</form>
+
+						<form action="{% url report_delete issue.options.id %}" method="POST" accept-charset="utf-8">{% csrf_token %}{% csrf_token %}
+							<input type="submit" value="{% trans "Delete" %}"></p>
+						</form>
+					{% endif %}
+				{% endif %}
+    		    
+			</div>
+			
+			<!--Activate again when the voting starts to work
+			<div id="comment_voting">
+				<span id="comment_{{ comment.id }}_buttonFor" ></span>
+				<span id="comment_{{ comment.id }}_votesFor" style="color:#33CC33"></span>
+				<span id="comment_{{ comment.id }}_buttonAgainst" ></span>
+				<span id="comment_{{ comment.id }}_votesAgainst" style="color:red;"></span>
+			</div>
+			-->
+			
+		{% endfor %}
+	</div>	
+{% endif %} 
+</div>	
+
+<div class="postcommentwrapper">
+	<h3 style="margin-top:15px;">{% trans "Comment on this message" %}</h3>
+
+{% if decorations.allow_commenting %}
+	<p>{% trans "or" %} <a href="{% url report_create %}">{% trans "leave a new message" %}</a></p>
+	
+{% if not request.user.is_authenticated %}
+
+	<!--<p>{% trans "Your comment" %} {% trans "will be saved anonymously" %}. {% trans "If you would like to leave" %} {% trans "the comment" %} {% trans "with name please, " %} <a href="{% url login %}">{% trans "Login" %}</a> {% trans "or" %} <a href="{% url signup %}">{% trans "Sign up" %}</a>.</p>-->
+			
+	<p>
+		{% trans "Because of spamming, anonymous commenting has been disabled." %}
+		{% trans "Registered users can continue commenting as before." %}
+	</p>
+			
+	<p>
+		<a href="{% url login %}">{% trans "Login" %}</a> {% trans "or" %} <a href="{% url signup %}">{% trans "Sign up" %}</a>.
+	</p>
+
+{% else %}      
+	<form action="{{ request.path }}" method="POST"  enctype="multipart/form-data" class="p-form">{% csrf_token %}	{% csrf_token %}
+	
+		{{ form_comment.as_p }}
+		<div id="newmarkerbutton">
+		     <img src="{{ MEDIA_URL }}/images/icons/silk_icons/map_add.png" style="vertical-align:middle" alt="comment"/>  <a class="marker" href="javascript:newButtonClick()">{% trans "Add a new placemarker on the map." %}</a>
+		</div>
+	
+		<div id="newmarkerform" style="display:none;">
+			<img src="{{ MEDIA_URL }}/images/icons/silk_icons/arrow_right.png" style="vertical-align:middle" alt="comment" s/> {% trans "Place a marker by clicking on the map." %}
+	        <div class="sidebar_box">
+	        	{{ form_geo.as_p }}
+				<span id="addresswarning"></span>		        
+	        </div>
+		</div>        
+	
+		<div id="newfilebutton">
+			<img src="{{ MEDIA_URL }}/images/icons/silk_icons/photo_add.png" style="vertical-align:middle" alt="comment"/>	<a class="file" href="javascript:fileButtonClick()">{% trans "Upload a new image." %}</a>
+		</div>
+		
+		<div id="newfileform" style="display:none;">
+			<img src="{{ MEDIA_URL }}/images/icons/silk_icons/photo_add.png" style="vertical-align:middle" alt="comment"/> {% trans "Select file to upload." %}
+		    {{ form_file.as_p }}
+		</div>
+
+		<p>
+			{% trans "Your comment" %} {% trans "will be registered with your login name " %} {{ user.first_name }} {{ user.last_name }}.
+	
+			<input name="submit" id="submit" value="{% trans "Send" %}" type="submit" style="margin-bottom:15px;"/>
+			<input name="reportid" value="#" type="hidden" />
+		</p>	
+	</form>
+{% endif %}
+{% else %}
+<p>
+{% blocktrans with decorations.custom_description as tag %}Commenting on messages related to the theme <b>{{ tag }}</b> is not allowed at the moment.{% endblocktrans %}
+</p>
+{% endif %}
+
+	
+<div class="singlewidgetwrapper">
+	<h3 style="margin-top:15px;">{% trans "Follow the discussion" %}</h3>
+	<p> {% trans "If you're tired of visiting this page, why not add a little widget to your blog or whatever webiste you have?" %}
+	 {% trans "It's extremely easy."  %} 
+	 {% trans "Just copy & paste the following code on to your website's html:" %} </p>	
+	
+	<p>
+	<input name="embed_code" value='<iframe height="420" width="190" src="http://fillarikanava.hel.fi/widget/single/{{ issue.options.id }}"><p>{% trans "Here`s a widget showing fillarikanava message " %} <a href="{{ issue.options.title }}"> {{ issue.options.title }}, "</a> {% trans "but unfortunately your browser does not support iframes."  %}</p></iframe>' readonly="readonly" type="text">
+	</p>
+	
+	</div>
+	
+</div>
+	
+
+
+{% endblock %}
+
+
+{% block javascript %}
+{{ block.super }}
+
+<script type="text/javascript"><!--
+
+	var reportTmpl = TrimPath.parseDOMTemplate('report_template');
+	var previewtemplate = TrimPath.parseDOMTemplate('preview_template');
+	var clustertemplate = TrimPath.parseDOMTemplate('cluster_template');
+	
+	
+	function refreshData() 
+	{
+		var reportTmpl = TrimPath.parseDOMTemplate('report_template');
+		loadNewEvents('{% url timemap_json_source %}',
+		              reportTmpl, previewtemplate, clustertemplate,
+		              {status: ["1","2","3","4","5"], cluster:"50"});			
+	}
+
+	load(refreshData, {% if request.session.mapcenterlat %}{{ request.session.mapcenterlat }}{% else %} 60.172225 {% endif %}, 
+			  {% if request.session.mapcenterlng %}{{ request.session.mapcenterlng }}{% else %} 24.941926 {% endif %},
+			  {% if request.session.mapzoomlevel %}{{ request.session.mapzoomlevel }}{% else %} 13 {% endif %}  );
+	refreshData();
+
+	var screenState = 'view';
+	var msg_cancel = '{% trans "Cancel" %}';
+	var msg_addbutton = '{% trans "Add new place on the map" %}';
+	var msg_address_not_found = '{% trans "Address not found:" %}';
+	--></script>
+	<script type="text/javascript"><!--
+
+	newButtonInit();
+	
+
+	var haloicon = new GIcon();
+	haloicon.image = MEDIA_URL + 'images/merkki_nuoli.png';
+//	haloicon.shadow = MEDIA_URL + 'images/pointer/cycle-shadow.png';
+	haloicon.iconSize = new GSize(30, 41);
+//	haloicon.shadowSize = new GSize(54, 40);
+	haloicon.iconAnchor = new GPoint(30, 41);
+	haloicon.infoWindowAnchor = new GPoint(20, 18);
+	
+	var bounds = new GLatLngBounds();
+	{% for place in issue.options.points %}
+	{% if place.lat %}
+		point = new GLatLng( {{ place.lat }}, {{ place.lng }} );
+		issueMarker=new GMarker(point, haloicon);
+		this_issue_markers.push(issueMarker);
+		bounds.extend(point);
+	{% endif %}
+	{% endfor %}
+
+
+	{% for comment in issue.options.comments %}
+	{% if comment.place.lat %}
+		point = new GLatLng( {{ comment.place.lat }}, {{ comment.place.lng }} );
+		issueMarker=new GMarker(point,{draggable:false, clickable:false, icon:haloicon});
+		this_issue_markers.push(issueMarker);
+		bounds.extend(point);
+	{% endif %}
+	{% endfor %}
+	if (!bounds.isEmpty()){
+		desiredZoomLevel = map.getBoundsZoomLevel(bounds)-1;
+		if (desiredZoomLevel > 16) desiredZoomLevel = 16;
+		map.setZoom(desiredZoomLevel);
+		map.setCenter(bounds.getCenter());
+	}
+
+	var simpleicon = new GIcon();
+	simpleicon.image = "{{ MEDIA_URL }}" + '/images/merkki_sin.png'
+	simpleicon.shadow = "{{ MEDIA_URL }}" + 'images/pointer/cycle-shadow.png';
+	simpleicon.iconSize = new GSize(23,41);
+	simpleicon.shadowSize = new GSize(40, 41);
+	simpleicon.iconAnchor = new GPoint(5,41);
+	
+	{% for comment in issue.options.comments %}{% if comment.place %}
+		if (GBrowserIsCompatible()) {
+			map{{comment.id}} = new GMap2(document.getElementById("map_{{ comment.id }}"));
+			marker{{comment.id}} = new GMarker(new GLatLng({{ comment.place.lat }}, {{ comment.place.lng }}), simpleicon);
+			map{{comment.id}}.setCenter(new GLatLng({{ comment.place.lat }}, {{ comment.place.lng }}), 14);
+			map{{comment.id}}.addOverlay(marker{{comment.id}});
+		}{% endif %}{% endfor %}
+
+
+	
+	$('body').unload(function () { GUnload(); });
+
+
+	function fileButtonClick() {
+		$("#newfilebutton").hide('slow');
+		$("#newfileform").show('slow');
+	}
+  	
+  	function showImage(div_id, imageurl) {
+  		$('#'+div_id+'_large').html( "<img src=\""+imageurl+"\">" );
+  		$('#'+div_id+'_large').show('slow');
+  		$('#'+div_id+'_small').hide('slow');
+
+  	}
+  	
+--></script>
+
+{% endblock %}

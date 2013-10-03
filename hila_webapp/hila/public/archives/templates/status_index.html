@@ -1,0 +1,69 @@
+{% extends "archives.html" %}
+
+{% block title %} {% trans "Browse by status" %} :: {{ block.super }}{% endblock %}
+
+{% block content %}
+<div id="main_content">
+<div id="content"><div id="content_top"></div>
+<ul class="sections">
+{% for status, years in archives %}
+	<li>
+		<a href="#" class="expand">{% trans status %}</a>
+		<ul class="hidden">
+		{% for year, months in years %}
+			<li>
+				<a href="#" class="expand">{{ year }}</a>
+				<ul class="hidden">
+				{% for month, reports in months %}
+					<li>
+						<a href="{% url archives_for_date year,month %}?status={{ status }}" class="expand-ajax">
+							{{ MONTHS|get:month }}
+						</a>
+						<ul class="hidden">
+							{% include "for_date.html" %}
+						</ul>
+					</li>
+				{% endfor %}
+				</ul>
+			</li>
+		{% endfor %}
+		</ul>
+	</li>
+{% endfor %}
+</ul><div id="content_bottom"></div></div></div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+<script type="text/javascript"><!--
+
+$('.expand').click(function() {
+	$(this).siblings('.hidden').slideToggle('fast');
+	return false;
+});
+
+$('.expand-ajax').click(function() {
+	var self = this, ul = $(this).siblings('ul');
+	if (this.__visible) {
+		ul.slideUp('fast');
+		this.__visible = false;
+	} else {
+		$.ajax({
+			url: this.href,
+			dataType: 'html',
+			success: function(content) {
+				ul.html(content).slideDown('fast');
+				self.__visible = true;
+			}
+		});
+	}
+	return false;
+});
+
+$('.report').parents().show();
+
+//--></script>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "front_base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Activation e-mail request" %}{% endblock %}
+
+{% block content %}
+<div id="content"><div id="content_top"></div>
+<h1>{% trans "Activation e-mail request" %}</h1>
+
+<p>{% trans "Haven't received an activation email? Enter your e-mail address below, and we'll e-mail you a new one." %}</p>
+
+<form action="" method="post">{% csrf_token %}
+{{ form.email.errors }}
+<p><label for="id_email">{% trans 'E-mail address:' %}</label> {{ form.email }} <input type="submit" value="{% trans 'Resend' %}" /></p>
+</form>
+<div id="content_bottom"></div></div>
+{% endblock %}

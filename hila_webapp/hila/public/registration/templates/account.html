@@ -1,0 +1,25 @@
+{% extends "front_base.html" %}
+
+{% block navigation %}
+{% activetab "topnav" "login" %}
+{{ block.super }}
+<div class="subtabrow">
+	<!--<ul id="subtabrow">
+		{% if request.user.is_authenticated %}
+		<li class="subtab{% ifactivetab "subnav" "info" %} subtabselected{% endifactivetab %}">
+			<a href="{% url user_profile %}">Tiedot</a>
+		</li>
+		<li class="subtab{% ifactivetab "subnav" "logout" %} subtabselected{% endifactivetab %}">
+			<a href="{{ settings.LOGOUT_URL }}">Kirjaudu ulos</a>
+		</li>
+		{% else %}
+		<li class="subtab{% ifactivetab "subnav" "login" %} subtabselected{% endifactivetab %}">
+			<a href="{{ settings.LOGIN_URL }}">Sisäänkirjautuminen</a>
+		</li>
+		<li class="subtab{% ifactivetab "subnav" "signup" %} subtabselected{% endifactivetab %}">
+			<a href="{% url signup %}">Tunnuksen luonti</a>
+		</li>
+		{% endif %}
+	</ul>-->
+</div>
+{% endblock %}

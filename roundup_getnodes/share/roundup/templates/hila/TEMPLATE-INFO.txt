@@ -1,0 +1,4 @@
+Name: hila-hila
+Description: Hila project customisation based on classic template
+Intended-for: All first-time Roundup users
+Path: /trackers/hila

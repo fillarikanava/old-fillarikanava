@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Fillarikanava :: Error</title>
+<style type="text/css">
+body{
+background-color:#fafafa;
+text-align:center;
+}
+#error{
+margin: 0 auto;
+width: 458px;
+}
+
+#error p{
+font-family:Georgia, "Times New Roman", Times, serif;
+font-size:14px;
+color:#3d8030;
+}
+
+#error span{
+color:#333333;
+font-weight:bold;}
+img{
+border:0px;
+margin-top:25px;}
+</style>
+</head>
+
+<body>
+
+<div id="error"><img src="{{ MEDIA_URL}}/images/virhe.gif" alt="Virhe sivustolla, asiaa selvitetään." /><br />
+<p>Ilmeisesti tienviitta on väärä ja sinut on ohjattu umpikujaan.<br />
+Matkaa voi jatkaa <a href="{% url public_front %}">etusivulta</a>. 
+<br />
+<span>Pahoittelemme.</span></p></div>
+
+</body>
+</html>

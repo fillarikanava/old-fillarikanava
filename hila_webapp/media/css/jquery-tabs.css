@@ -1,0 +1,44 @@
+#front-tabs.hide {
+	display: none;
+}
+
+#front-tabs.show {
+	display: block;
+}
+
+div#front-tabs>div {
+	font-size: 85%;
+}
+
+div#front-tabs>div h2 {
+	font-size: 110%;
+	padding-bottom: 0.4em;
+	line-height: 1.5em;
+}
+
+ul.tab-navi {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul.tab-navi li {
+	display: inline;
+}
+
+ul.tab-navi li a {
+	padding: 3px 5px;
+	text-decoration: none;
+}
+
+ul.tab-navi li a.selected,ul.tab-navi li a:hover {
+	background-color: #333;
+	color: #fff;
+}
+
+ul.tab-navi li a:focus {
+	outline: 0;
+}
+
+
+

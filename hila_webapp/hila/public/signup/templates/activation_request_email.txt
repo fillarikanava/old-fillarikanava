@@ -1,0 +1,2 @@
+{% load i18n %}
+Your activation key is {{ site_url }}/accounts/activate/{{ activation_key }}/

@@ -1,0 +1,10 @@
+{% extends "hila_base.html" %}
+
+{% block styles %}
+{{ block.super }}
+<link href="{{ MEDIA_URL }}css/widget.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<p class="errorclass">Widget missing content</p>				
+{% endblock %}

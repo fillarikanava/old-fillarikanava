@@ -1,0 +1,81 @@
+{% extends "widget_base.html" %}
+{% block title %}Karttaselaus | {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="filters" style="height: 50px;">
+	<a href="#" class="selected" id="1,2,3"><img src="{{ MEDIA_URL }}images/cycle-sign-blue.png" /></a>
+	<a href="#" class="selected" id="5"><img src="{{ MEDIA_URL }}images/cycle-sign-yellow.png" /></a>
+	<a href="#" class="selected" id="4"><img src="{{ MEDIA_URL }}images/cycle-sign-red.png" /></a>
+</div>
+<div id="googlemap"></div>
+<div id="map" style="width: 250px; height: 250px;"></div>
+<div id="issueview" style="width: 250px; height: 350px; padding-top: 6px;">
+	<span class="tip">Klikkaa merkkiä kartalla</span>
+</div>
+{% endblock %}
+
+{% block javascript %}
+{% comment %}
+Template here in javascript block.
+See http://code.google.com/p/trimpath/wiki/JavaScriptTemplates
+{% endcomment %}
+<textarea id="report_template" style="display: none;">
+<div class="report">
+	<a href="${link}"><h1 class="title">${title}</h1></a>
+	<p class="description">${options.description|br|wrap:140}</p>
+	<span class="author">${options.author}</span>
+	<div class="thumbs">
+		<img src="{{ MEDIA_URL }}images/thumb-up.png" />
+		<img src="{{ MEDIA_URL }}images/thumb-down.png" />
+	</div>
+	{for comment in options.comments }
+	<div class="comment">
+		<span class="author">${comment.author}</span>
+		<p>${comment.text|br|wrap:100}</p>
+	</div>
+	{/for}
+	<div>
+		<a href="#" class="expand fade">kommentoi</a>
+		<form action="#" class="hidden">{% csrf_token %}
+			{var ta = '<'+'textarea rows="2"></'+'textarea>'}
+			${ta}
+			<input type="submit" value="kommentoi">
+		</form>
+	</div>
+</div>
+</textarea>
+
+{{ block.super }}
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={{ settings.GOOGLE_MAPS_KEY }}&sensor=true&hl=fi" type="text/javascript"></script>
+<script src="{{ MEDIA_URL }}js/hila-googlemap.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	var reportTmpl = TrimPath.parseDOMTemplate('report_template');
+
+	function refreshData() {
+		var statuses = [];
+		$('.filters a.selected').each(function() {
+			statuses = statuses.concat(this.id.split(','));
+		});
+		loadNewEvents('{% url timemap_json_source %}',
+		              reportTmpl,
+		              {status: statuses});
+	}
+
+	load(refreshData);
+	refreshData();
+
+	$('body').unload(function () { GUnload(); });
+
+	$('.expand').live('click', function() {
+		$(this).siblings('.hidden').slideToggle('fast');
+		return false;
+	});
+
+	$('.filters a').click(function() {
+		$(this).toggleClass('selected');
+		refreshData();
+		return false;
+	});
+</script>
+{% endblock %}

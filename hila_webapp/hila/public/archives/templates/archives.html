@@ -1,0 +1,8 @@
+{% extends "subtabrow.html" %}
+
+{% block title %}Archives :: {{ block.super }}{% endblock %}
+
+{% block navigation %}
+{% activetab "subnav" "archives" %}
+{{ block.super }}
+{% endblock %}

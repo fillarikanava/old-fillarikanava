@@ -1,0 +1,18 @@
+{% extends "front_base.html" %}
+{% block content %}
+    <div id="content"><div id="content_top"></div>
+    User {{ profile.user.username }}:
+    <p>Messages created by the user:</p>
+    <ol>
+    {% for issue in issues %}
+        <li><a href="{% url report_view issue.options.id %}">{{ issue.title }}</a> </li>
+    {% endfor %}
+    <p>Comments made by the user:</p>
+    <ol>
+    {% for message in messages %}
+    {# Messages currently have no way of linking to the issue that they refer to since the linkurl is not defined. #}
+        <li>{{ message.text|truncatewords_html:25  }}</li>
+    {% endfor %}
+    </ol>
+    </div>
+{% endblock %}

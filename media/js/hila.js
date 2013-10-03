@@ -1,0 +1,6 @@
+
+/**
+ * Create namespace.
+ */
+function Hila() {
+}

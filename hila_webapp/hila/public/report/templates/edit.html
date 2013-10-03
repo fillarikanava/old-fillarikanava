@@ -1,0 +1,296 @@
+{% extends "front_base.html" %}
+
+{% block title %} {% trans "Edit" %}{% endblock %}
+
+{% block navigation %}
+{% activetab "subnav" "edit" %}
+{{ block.super }}
+{% endblock %}
+
+{% block mainpanel %}
+
+<form action="{% url report_edit report_id %}" method="POST" enctype="multipart/form-data" class="p-form">{% csrf_token %}{% csrf_token %}
+<br />
+		
+<div id="contentleft">		
+	<div class="spacer"></div>
+</div>
+
+<div id="content_bottom"></div>	
+<div class="spacer"></div>
+
+
+{% endblock %}
+
+
+{% block sidebar %}
+
+
+<!--- MAIN FORM -->
+
+
+<!--[if lte IE 7]>
+<div style="height:24px;"></div>
+<![endif]-->
+<div class="report-create">
+	<h3>{% trans "Type your message into the box." %}</h3>
+
+	<div id="newmarkerbutton">
+		<a class="marker" href="javascript:newButtonClick()">{% trans "Add a new placemarker on the map." %}</a>
+	</div>
+
+	<div id="newmarkerform" style="display:none;">
+		{% trans "Place a marker by clicking on the map." %}
+		{{ form_geo.as_p }}
+		<span id="addresswarning"></span>
+	</div>
+
+	<div id="newfilebutton">
+		<a class="file" href="javascript:fileButtonClick()">{% trans "Upload a new image." %}</a>
+	</div>
+
+	<div id="newfileform" style="display:none;">
+		{% trans "Select file to upload." %}
+		{{ form_file.as_p }}
+
+		<script type="text/javascript">
+		</script>	
+	</div>
+
+
+
+	{{ form_main.as_p }}
+
+	<div class="report-create-right">
+
+		<p>{% trans "Characters remaining: " %}<strong><span id="counter"></span></strong></p>
+		<br><br><br>
+		<p>
+		{% if not request.user.is_authenticated %}
+			<!--{% trans "Warning, you are not signed in" %}-->
+		{% else %}
+			<!--{% trans "Your message will be registered with your login name " %} {{ user.first_name }} {{ user.last_name }}.-->		
+		{% endif %}
+		</p>
+		<input type="submit" value="{% trans "Create new" %}" /> 
+	</div>
+</div>        
+
+
+
+
+<div id="similar_box">
+	<div id="matches"></div>
+	<p>{% trans "When you start writing, we'll show similar items here" %}
+</div>	
+</form>
+
+	
+{% endblock %}
+
+
+{% block javascript %}
+{{ block.super }}
+<!-- REAL-TIME SEARCH FUNCTIONS -->
+<script src="{{ MEDIA_URL }}js/hila-rt-search.js" type="text/javascript">
+load('{% url search_2_json %}');
+</script>
+<script type="text/javascript"><!--
+
+function getKeywords() {
+	keywords = "";
+	$.each( $("#id_message,#id_title,#id_keywords,#id_issueaddress"), function(i, obj1) {
+		keywords += " " + obj1.value
+	})
+	return keywords;
+}
+
+$("#id_message,#id_title,#id_keywords,#id_issueaddress").bind('keyup', function(e){
+	loadNewMatches( '{% url search_2_json %}' , getKeywords() );
+});
+
+
+loadNewMatches( '{% url search_2_json %}' , getKeywords() );
+//--></script>
+
+<!-- TEMPLATES FOR SHOWING DATA -->
+
+<!-- preview_template -->
+<textarea id="preview_template" style="display: none;">
+{if point.address}
+	${point.address}<br />
+{/if}
+
+<h3 class="title">${title}</h3> 
+{if options.commentcount}
+	${options.commentcount}
+{if options.commentcount >1}
+	{% trans "comments" %}
+{else}
+	{% trans "comment" %}
+{/if}
+<br>{/if}
+<a href="${options.link}">{% trans "Click to read more and comment" %}</a> 
+</textarea>
+
+<!-- cluster_template -->
+
+<textarea id="cluster_template" style="display: none;">
+<h3 class="title">${title}</h3>
+{for i in options.points }
+	${i.address} <br>
+{/for}
+<a href='javascript:zoomToCluster(${options.ne.lng},${options.ne.lat},${options.sw.lng},${options.sw.lat})'>{% trans "Click here to zoom in" %}</a> 
+</textarea>
+
+
+<!-- report_template -->
+<textarea id="report_template" style="display: none;">
+<div class="report">
+	<span class="author">${options.author} ${options.date}</span>
+	<a href="${options.link}"><h1 class="title">${title}</h1></a>
+	<div class="thumbs">
+		<img src="{{ MEDIA_URL }}images/thumb-up-active.png" />
+		<img src="{{ MEDIA_URL }}images/thumb-down-active.png" />
+	</div>
+	{for comment in options.comments }
+	<div class="comment">
+		<span class="author">${comment.author}</span>
+		<p>${comment.text|br|wrap:140}</p>
+	</div>
+	{/for}
+	<div>
+<a href="${options.link}">{% trans "Read more and comment" %}</a> 
+<!--		<a href="#" class="expand fade">{% trans "Comment" %}</a>  -->
+		<form action="#" class="hidden">{% csrf_token %}
+			{var ta = '<'+'textarea rows="2"></'+'textarea>'}
+			${ta}
+			<input type="submit" value="kommentoi">
+		</form>
+	</div>
+</div>
+</textarea>
+
+
+{{ block.super }}
+
+
+<!-- MAP FUNCTIONS -->
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={{ settings.GOOGLE_MAPS_KEY }}&sensor=true&hl=fi" type="text/javascript"></script>
+
+
+
+
+<script type="text/javascript">
+//These are for notifying user that new data is loaded from server.
+//The first line has to be called in the template, to enable translations
+document.write('<div id="LoadingNewDataInfoDiv" name="LoadingNewDataInfoDiv" style="background-color:yellow">{% trans "Fetching new marker data from server." %}<span id="ticker"></span></div>');
+</script>
+
+<script type="text/javascript">
+var NewDataInfoDiv=document.getElementById('LoadingNewDataInfoDiv'); 
+var NewDataInfoPos = new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(50,10)); 
+NewDataInfoPos.apply(NewDataInfoDiv); 
+</script>
+
+
+
+
+
+
+
+
+<script src="{{ MEDIA_URL }}js/abothe2-hila-googlemap.js" type="text/javascript"></script>
+
+
+
+<script src="{{ MEDIA_URL }}js/extinfowindow_packed.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+	var reportTmpl = TrimPath.parseDOMTemplate('report_template');
+	var previewtemplate = TrimPath.parseDOMTemplate('preview_template');
+	var clustertemplate = TrimPath.parseDOMTemplate('cluster_template');
+	
+	
+	function refreshData() 
+	{
+		var reportTmpl = TrimPath.parseDOMTemplate('report_template');
+		loadNewEvents('{% url timemap_json_source %}',
+		              reportTmpl, previewtemplate, clustertemplate,
+		              {status: ["1","2","3","4","5"], cluster:"50"});		
+	}
+
+	load(refreshData, {% if request.session.mapcenterlat %}{{ request.session.mapcenterlat }}{% else %} 60.172225 {% endif %}, 
+			  {% if request.session.mapcenterlng %}{{ request.session.mapcenterlng }}{% else %} 24.941926 {% endif %},
+			  {% if request.session.mapzoomlevel %}{{ request.session.mapzoomlevel }}{% else %} 13 {% endif %} );
+	refreshData();
+
+	putFirstMarker(0 {% if lat %}{% if lng %},{{lat}},{{lng}}{% endif %}{% endif %});
+
+	var screenState = 'create';
+	var msg_cancel = '{% trans "Cancel" %}';
+	var msg_addbutton = '{% trans "Add new place on the map" %}';
+	var msg_address_not_found = '{% trans "Address not found:" %}';
+	</script>
+	<script src="{{ MEDIA_URL }}js/hila-googlemap-button.js" type="text/javascript"></script>
+	<script type="text/javascript">
+
+	newButtonInit();
+	
+	$('body').unload(function () { GUnload(); });
+	$('.expand').live('click', function() {
+		$(this).siblings('.hidden').slideToggle('fast');
+		return false;
+	});
+	$('.filters a').click(function() {
+		$(this).toggleClass('selected');
+		refreshData();
+		return false;
+	});
+</script>
+
+<script type="text/javascript">
+
+function fileButtonClick() {
+	$("#newfilebutton").hide('slow');
+	$("#newfileform").show('slow');
+}
+
+/** 
+ * Character Counter for inputs and text areas 
+ */ 
+// Thanks to http://www.jamesfairhurst.co.uk/posts/view/jquery_word_character_counter/
+
+// TODO: message length and field names hardcoded here. Bad bad bad...
+         $('#counter').html( 140 - $('#id_message').val().length );  
+
+	     // get current number of characters  
+	     var length = $('#id_message').val().length;  
+	     // get current number of words  
+	     //var length = $(this).val().split(/\b[\s,\.-:;]*/).length;  
+	     // update characters  
+	     $('#id_message').parent().find('.counter').html( length + ' characters');  
+	     // bind on key up event  
+	     $('#id_message').keyup(function(){  
+	         // get new length of characters  
+	         var new_length = $('#id_message').val().length;  
+	         // get new length of words  
+	         //var new_length = $(this).val().split(/\b[\s,\.-:;]*/).length;  
+	         // update  
+	         var char_rem = 140 - new_length;
+	         if (char_rem < 0) {
+	         	$('#counter').html('<span style="background-color:#FF0000">' + char_rem + '</span>' );
+	         } 
+	         else
+	         {
+	         	$('#counter').html(char_rem);
+	         }
+	     });  
+ 
+</script>		
+
+
+{{ decorations.custom_javascript|safe }}
+
+{% endblock %}

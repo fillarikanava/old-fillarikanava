@@ -1,0 +1,550 @@
+{% extends "front_base.html" %}
+{% block title %} {{ block.super }} {% endblock %}
+{% block javascript-head %}
+	{{ block.super }}
+		<!--  front-base :: javascripts -->
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#front-tabs").tabs();
+				$("#front-tabs").removeClass("hide");
+			}); 
+		</script>
+		<script type="text/javascript">
+			$(function () {
+				var tabs = $('div#front-tabs > div');
+				tabs.hide().filter(':first').show();
+				
+				$('div#front-tabs ul.tab-navi a').click(function () {
+					tabs.hide();
+					tabs.filter(this.hash).show();
+					$('div#front-tabs ul.tab-navi a').removeClass('selected');
+					$(this).addClass('selected');
+					return false;
+				}).filter(':first').click();
+			});
+		</script>
+{% endblock %}
+{% block mainpanel %}
+	<body>
+	<div>   
+		<div id="map" style="width: 469px; height: 469px; margin:16px 0 0 0;"></div>
+		<div id="newmarkerbutton"></div>
+	</div>
+
+	<h2 class="front">{% trans "What Fillarikanava?" %}</h2>
+		<ul>
+			<li>{% trans "Tell: Place good solutions or difficult spots to bike on the map" %}</li>
+			<li>{% trans "Ask: Ask the officers and fellow cyclists or suggest improvements" %}</li>
+			<li>{% trans "Discuss: Read, answer and vote on other people's suggestions" %}</li>
+		</ul>
+	<h2 class="front"><a href="http://fillarikanava.uservoice.com/" target="_blank">{% trans "Feedback about the service"%}</a></h2>
+	<p>		
+		<!--<a href="http://fillarikanava.uservoice.com/" target="_blank"><img src="{{ MEDIA_URL }}/images/user_voice.png" alt="UserVoice" height="25" /></a>-->
+		{% trans "The priority feedback channel about the bugs and feature requests related to Fillarikanava is: "%}
+		<a href="http://fillarikanava.uservoice.com/" target="_blank">http://fillarikanava.uservoice.com/</a>
+	</p>
+	
+
+	<div id="content_bottom"></div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="issueview"><!--[if lte IE 7]>
+<div style="height:16px;"></div>
+<![endif]-->
+
+	{% if first_visit%}
+	<div id="first_time_info">
+		<div id="close_button">
+			<a href="#" onClick="closeFirstTimeInfo()">{% trans "Close" %}<img src="{{ MEDIA_URL }}/images/icons/silk_icons/cross.png" alt="close"/></a>
+		</div>
+		<h3>{% trans "Seems that this is your first visit to this site." %}</h3>
+		<ul>
+			<li>{% trans "You see a preview of a message by clicking on them on the map." %}</li>
+			<li>{% trans "Then click on the text to see the full view." %}</li>
+			<li>{% trans "Give thumbs up for good ideas and thumbs down for bad ones." %}</li>
+			<li>{% trans "Comment if you have something to add." %}</li>
+			<li>{% trans "Post pictures and place messages on the map." %}</li>
+		</ul>
+		<p><a href="{% url public_info %}">{% trans "Read more on the 'About' page!" %}</a></p>
+	</div>
+	{% endif %}
+	
+	<div id="front-tabs" class="hide">
+		<ul class="tab-navi">
+			<li><a href="#tab-1">{% trans "Latest" %}</a></li>
+			<!--Activate again when the voting starts to work
+			<li><a href="#tab-2">{% trans "Popular" %}</a></li>
+			-->
+			<li><a href="#tab-3">{% trans "Official" %}</a></li>
+			<li><a href="#tab-5">{% trans "Browse" %}</a></li>			
+			<li><a href="#tab-4">{% trans "Search" %}</a></li>
+		</ul>
+		
+		<div id="tab-1">
+			<table>
+				<tr>
+					<td>
+						<ul class="msg_list">				
+							{% for message in latest_messages %}
+							<div id="tab_{{message.options.id}}">
+								<li class="sini_li"
+									onmouseover="style.backgroundColor='#84DFC1';
+									             issue_highlight([{% for place in message.options.points %}{{place.id}}, {% endfor %}]);"
+									onmouseout="style.backgroundColor='#FFFFFF';
+									            stop_issue_highlight([{% for place in message.options.points %}{{place.id}}, {% endfor %}]);">
+								
+									{% if message.options.comments %}
+									
+									{% for comment in message.options.comments %}
+
+									    {% if forloop.last %}
+									    <a href="{{ message.options.link }}#comment_{{comment.id}}">
+									       {{ comment.text|truncatewords_html:15 }}
+										</a>
+									<div class=metadata>
+										
+										<br>
+{% blocktrans with comment.author as commentauthor and comment.authorlink as commentauthorlink  and message.options.author as origauthor and message.options.authorlink as origauthorlink and message.options.link as messagelink and message.title as messagetitle and comment.smartdate as date %}<a href=/user/{{ commentauthorlink }}>{{ commentauthor }}</a> commented {{ date }} on message <a href={{messagelink}}> {{messagetitle}} </a> by <a href=/user/{{ origauthorlink }}>{{ origauthor }}</a>.{% endblocktrans %}
+										{% if message.options.address %}
+											,<img src="{{ MEDIA_URL }}/images/merkki_sin.png" alt="comment"/> {{ message.options.address }}
+										{% endif%}
+
+										<!--Activate again when the voting starts to work
+										 , <img src="{{ MEDIA_URL }}/images/icons/silk_icons/star.png" alt="comment"/>
+										{{ message.options.score }} {% trans "points" %}
+										-->						
+									</div>
+									   {% endif %} 
+									
+									{% endfor %}
+									
+									
+									{% else %}
+										<a href="{{ message.options.link }}">{{ message.title }}</a>
+										<br>
+
+									<div class=metadata>
+										{{ message.options.author }}, {{ message.options.smartdate }}
+										{% if message.options.address %}
+											,<img src="{{ MEDIA_URL }}/images/merkki_sin.png" alt="comment"/> {{ message.options.address }}
+										{% endif%}
+										<br>
+										<!--Activate again when the voting starts to work
+										 , <img src="{{ MEDIA_URL }}/images/icons/silk_icons/star.png" alt="comment"/>
+										{{ message.options.score }} {% trans "points" %}
+										-->						
+									</div>
+									
+									{% endif %}
+									
+									
+									
+								</li>
+							</div>
+							{% endfor %}
+						</ul>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+
+		<div id="tab-3">
+			<table>
+				<tr>
+					<td>
+						<ul class="msg_list">				
+							{% for message in officer_messages %}
+							<div id="tab_{{message.options.id}}">
+								<li class="sini_li"  
+									onmouseover="style.backgroundColor='#84DFC1';
+									             issue_highlight({{message.options.id}});"
+									onmouseout="style.backgroundColor='#FFFFFF';
+									            stop_issue_highlight({{message.options.id}});">
+									            
+
+
+									{% if message.options.comments %}
+									
+									{% for comment in message.options.comments %}
+
+									    {% if comment.official %}
+									    
+									    <a href="{{ message.options.link }}#comment_{{comment.id}}">
+									       {{ comment.text|truncatewords_html:15 }}
+										</a>
+									<div class=metadata>
+										
+										<br>
+{% blocktrans with comment.author as commentauthor and comment.authorlink as commentauthorlink  and message.options.author as origauthor and message.options.authorlink as origauthorlink and message.options.link as messagelink and message.title as messagetitle and comment.smartdate as date %}<a href=/user/{{ commentauthorlink }}>{{ commentauthor }}</a> commented {{ date }} on message <a href={{messagelink}}> {{messagetitle}} </a> by <a href=/user/{{ origauthorlink }}>{{ origauthor }}</a>.{% endblocktrans %}
+										{% if message.options.address %}
+											,<img src="{{ MEDIA_URL }}/images/merkki_sin.png" alt="comment"/> {{ message.options.address }}
+										{% endif%}
+										<!--Activate again when the voting starts to work
+										 , <img src="{{ MEDIA_URL }}/images/icons/silk_icons/star.png" alt="comment"/>
+										{{ message.options.score }} {% trans "points" %}
+										-->						
+									</div>
+									   {% endif %} 
+									
+									{% endfor %}
+									
+									
+									{% else %}
+										<a href="{{ message.options.link }}">{{ message.title }}</a>
+										<br>
+
+									<div class=metadata>
+										{{ message.options.author }}, {{ message.options.smartdate }}
+										{% if message.options.address %}
+											,<img src="{{ MEDIA_URL }}/images/merkki_sin.png" alt="comment"/> {{ message.options.address }}
+										{% endif%}
+										<br>
+										<!--Activate again when the voting starts to work
+										 , <img src="{{ MEDIA_URL }}/images/icons/silk_icons/star.png" alt="comment"/>
+										{{ message.options.score }} {% trans "points" %}
+										-->						
+									</div>
+									
+	
+									{% endif %}
+
+								</li>
+							</div>
+							{% endfor %}
+						</ul>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		
+		<div id="tab-5">
+		<ul class="sections">
+{% for years in archives %}
+	<li>
+		{% for year, months in years %}
+			<li>
+				<a href="#" class="expand">{{ year }}</a>
+				<ul >
+				{% for month, reports in months %}
+					<li>
+						<a href="{% url archives_for_date year,month %}?status=foo" class="expand-ajax">
+							{{ MONTHS|get:month }}
+						</a>
+						<ul class="hidden">
+							{% include "for_date.html" %}
+						</ul>
+					</li>
+				{% endfor %}
+				</ul>
+			</li>
+		{% endfor %}
+	</li>
+{% endfor %}
+</ul>
+</div>
+		
+		<div id="tab-4">
+			<form name="search" action="{% url report_search %}" method="get">
+				<input type="text" name="terms"/>
+				<input type="submit" value="{% trans "Search" %}" />
+			</form> 			
+		</div>
+		
+<!-- Activate again when the voting starts to work
+		<div id="tab-2">
+			<table>
+			<tr>
+			<td>
+			<ul class="msg_list">				
+				{% for message in popular_messages %}
+						<li class="sini_li"  id="tab_{{message.options.id}}"  
+							onmouseover="style.backgroundColor='#84DFC1';
+							             issue_highlight([ {% for place in message.options.points %} {{place.id}}, {% endfor %}]);"
+							onmouseout="style.backgroundColor='#FFFFFF';
+							            stop_issue_highlight([ {% for place in message.options.points %} {{place.id}}, {% endfor %}]);">
+-->
+						<!--[if IE]><!--<p>&nbsp;&nbsp;<![endif]--> 
+<!--
+						<a href="{{ message.options.link }}">{{ message.title }}</a><br><br>
+						
+						{% if message.options.comments %}
+							<img src="{{ MEDIA_URL }}/images/icons/silk_icons/comment.png" alt="comment"/>
+							{{ message.options.commentcount }} 
+							{% trans "comments" %}, 
+							{% if message.options.last_comment_smartdate %}
+								{% trans "last " %} 
+								{{ message.options.last_comment_smartdate.0 }}
+							{% endif%}
+						{% else%}
+							{{ message.options.author }}, {{ message.options.smartdate }}
+						{% endif %}
+
+						 | <img src="{{ MEDIA_URL }}/images/icons/silk_icons/star.png" alt="comment"/>
+						{{ message.options.score }} {% trans "points" %}
+-->
+						<!-- [if IE]></p><![endif]-->
+<!--					</li>
+				{% endfor %}
+			</ul>
+			</td>
+			</tr>
+			</table>
+		</div>
+-->		
+		
+	</div>
+
+
+
+
+	<div id="follow">   
+		<p>{% trans "Service brought to you by:" %}<br/>
+<a href="http://www.hel.fi/wps/portal/Kaupunkisuunnitteluvirasto/Artikkeli?WCM_GLOBAL_CONTEXT=/Ksv/fi/Liikennesuunnittelu/Py_r_ily+ja+jalankulku/"> <img src="{{ MEDIA_URL }}/images/logo_hki.jpg" alt="Helsingin kaupunki" /></a></p>
+    <p>{% trans "In cooperation:" %}<br />
+<a href="http://www.hepo.fi/"> <img src="{{ MEDIA_URL }}/images/logo_hepo.jpg" alt="HePo" /></a><a href="http://www.fillarihelsinki.fi/"> <img src="{{ MEDIA_URL }}/images/logo_fillarihki.jpg" alt="Fillari Helsinki" /></a></p>
+    
+  
+		<p>{% trans "Follow us on" %}:<br />
+			<a href="http://www.facebook.com/group.php?gid=36053834482"> <img src="{{ MEDIA_URL }}/images/facebook.png" alt="Facebook" height="25" /></a>
+			<a href="http://www.qaiku.com/channels/show/fillarikanava/"> <img src="{{ MEDIA_URL }}/images/qaiku.png" alt="Qaiku" height="25" /></a>
+			<a href="http://twitter.com/fillarikanava"> <img src="{{ MEDIA_URL }}/images/twitter.png" alt="Twitter" height="25"/></a>
+		</p>
+ 
+
+		<div style="border-style:solid;border-width:1px;padding:5px;background-color:#DDDDDD;text-align:left;">
+		<p>
+		25.10. <br />
+		{% trans "The points on the map get clustered now so that the map loads a bit faster. Now you can find from the bottom of the individual message pages a short script. If you copy-paste the script to your blog for example, you can follow the discussion trough a widget." %}
+		<br/><br/>
+		{% trans "Best regards" %}, Antti Poikola / <a href="{% url public_feedback %}">{% trans "development team" %}</a>
+		</p>
+		</div>
+ 
+		<div style="border-style:solid;border-width:1px;padding:5px;background-color:#DDDDDD;text-align:left;">
+		<p>
+		8.10. <br />
+		{% trans "The service is still not working as fast as it should be. Usually it takes 15 to 30 seconds to load all the content on the map. We would like to thank all new and returning users of this Beta version for your patience. Currently there are more than 300 messages with locations and 600 comments in the system." %} <a href="http://fillarikanava.uservoice.com/" target="_blank">{% trans "You may leave us feedback in the UserVoice" %}</a>.
+		<br/><br/>
+		{% trans "Best regards" %}, Antti Poikola / <a href="{% url public_feedback %}">{% trans "development team" %}</a>
+		</p>
+		</div>
+ 
+<!-- 		
+		<div style="border-style:solid;border-width:1px;padding:5px;background-color:#DDDDDD;text-align:left;">
+		<p>
+		1.9. <br />
+		Spämmääjät iskivät. Antti on poistellut roskia manuaalisesti. Tästä on kuitenkin turhan paljon työtä, joten 
+		poistin mahdollisuuden jättää viestejä anonyyminä siihen asti, että jollakulla on aikaa
+		miettiä parempi ratkaisu tähän ongelmaan. Jos tämä aiheuttaa pahaa verta, niin parempia ehdotuksia
+		voi jättää uservoiceen.
+		</p>
+		<p>
+		<b>English brief</b>: Because of spamming anonymous submissions are no longer accepted.<br> 
+		<b>Svenska kortversion</b>: Därför att det finns för mycket spam, man måste registrera om att skriva meddelanden.
+		</p><p>
+		<br/>Terveisin, rk
+		</div>
+ 
+ 
+		<div style="border-style:solid;border-width:1px;padding:5px;background-color:#DDDDDD;text-align:left;">
+		<p>
+		4.7. <br />
+		Merkkiklusteroinnissa ilmeni käytettävyysongelmia, jotka pitäisi ratkoa kaikkien muiden pulmien ohessa. Tuota odotellessa optimoin
+		hieman kantahakuja ja lisäsin karttaan muistiominaisuuden, eli kartta latautuu keskittäen siihen kohtaan, jossa sitä viimeksi on katsottu.
+		Janne virittelee lähipäivinä kevyempää http-palvelinsoftaa käyttöön, toivottavasti tällä päästään parempaan suorituskykyyn.
+		</p><p>
+		Bugeja voi edelleen raportoida uservoiceen.		
+		</p><p>
+		<br/>Terveisin, Reima Karhila, koodiapina ja bianchisti
+		</div>
+ 
+ 
+ 
+		<div style="border-style:solid;border-width:1px;padding:5px;background-color:#DDDDDD;text-align:left;">
+		<p>
+		24.6. <br />
+		Julkaisupäivän kuorma yllätti palvelimemme. Jouduin laskemaan yhtäaikaisten yhteyksien määrää palvelun
+		stabiiliuden varmistamiseksi. Tästä johtuen ruuhkaisina aikoina palvelu on varsin hidas.
+		Virittelemme sekä palvelin- että sovelluspuolta ja saanemme tilanteen haltuun lähipäivinä.
+		</p><p>
+		Pahoitteluni koko kehitysjoukkueemme puolesta tästä tukkoisesta alusta.<br />
+		<br/>Terveisin, Reima Karhila
+		</div>
+	 -->  
+
+	</div>
+
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+{% comment %}
+Template here in javascript block.
+See http://code.google.com/p/trimpath/wiki/JavaScriptTemplates
+{% endcomment %}
+
+{{ block.super }}
+
+		<script src="{% url public_settings %}" type="text/javascript"></script>
+		<script src="{{ MEDIA_URL }}js/jquery-1.3.2.min.js" type="text/javascript"></script>
+		<script src="{{ MEDIA_URL }}jquery-ui-1.7.1/jquery-ui-1.7.1.custom.min.js" type="text/javascript"></script>
+		<script src="{{ MEDIA_URL }}trimpath-1.1.22/template.js" type="text/javascript"></script>
+		<script src="{{ MEDIA_URL }}js/hila.js" type="text/javascript"></script>
+		<script src="{{ MEDIA_URL }}js/hila.forms.js" type="text/javascript"></script>
+		<script src="{{ MEDIA_URL }}js/hila.jst.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+	$(function() {
+		$('#front-tabs > ul').tabs();
+	});
+</script>      
+            
+
+<script src="{{ MEDIA_URL }}js/hila-rt-search.js" type="text/javascript">
+load('{% url search_2_json %}');
+</script>
+<script type="text/javascript"><!--
+
+function getKeywords() {
+	keywords = "";
+	$.each( $("#id_message,#id_title,#id_keywords,#id_issueaddress"), function(i, obj1) {
+		keywords += " " + obj1.value
+	})
+	return keywords;
+}
+
+$("#id_message,#id_title,#id_keywords,#id_issueaddress").bind('keyup', function(e){
+	loadNewMatches( '{% url search_2_json %}' , getKeywords() );
+});
+
+
+loadNewMatches( '{% url search_2_json %}' , getKeywords() );
+
+
+
+//--></script>
+{{ block.super }}
+
+
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={{ settings.GOOGLE_MAPS_KEY }}&sensor=true&hl=fi" type="text/javascript"></script>
+
+<script type="text/javascript">// This has to be here to get translations right...
+document.write('<div id="LoadingNewDataInfoDiv" style="background-color:yellow">{% trans "Fetching new marker data from server." %}<span id="ticker"></span></div>');</script>
+<script src="{{ MEDIA_URL }}js/beta-googlemap.js?{{ settings.JS_VERSION }}" type="text/javascript"></script>
+
+<script src="{{ MEDIA_URL }}js/hila.jst.js" type="text/javascript"></script>
+<script src="{{ MEDIA_URL }}js/extinfowindow_packed.js" type="text/javascript"></script>
+
+
+
+<script type="text/javascript">
+
+
+	var reportTmpl = TrimPath.parseDOMTemplate('report_template');
+	var previewtemplate = TrimPath.parseDOMTemplate('preview_template');
+	var clustertemplate = TrimPath.parseDOMTemplate('cluster_template');
+
+	
+	function refreshData() 
+	{
+		var reportTmpl = TrimPath.parseDOMTemplate('report_template');
+		loadNewEvents('{% url timemap_json_source %}',
+		              reportTmpl, previewtemplate, clustertemplate,
+		              {status: ["1","2","3","4","5"], cluster:"50"});			
+	}
+	
+	load(refreshData, {% if request.session.mapcenterlat %}{{ request.session.mapcenterlat }}{% else %} 60.172225 {% endif %}, 
+					  {% if request.session.mapcenterlng %}{{ request.session.mapcenterlng }}{% else %} 24.941926 {% endif %},
+					  {% if request.session.mapzoomlevel %}{{ request.session.mapzoomlevel }}{% else %} 13 {% endif %} );
+	
+	function onClickFunction(point) {
+		
+		window.document.location.href = '{% url report_create %}?lat='+point.y+'&lng='+point.x; 
+	}
+
+	var screenState = 'front';
+	var msg_cancel = '{% trans "Cancel" %}';
+	var msg_addbutton = '{% trans "Add new place on the map" %}';
+	var create_url = '{% url report_create %}';
+
+
+	refreshData();
+
+	
+	</script>
+	<script src="{{ MEDIA_URL }}js/hila-googlemap-button.js" type="text/javascript"></script>
+	<script type="text/javascript">
+
+
+	newButtonInit();
+
+
+	$('body').unload(function () { GUnload(); });
+
+	$('.expand').live('click', function() {
+		$(this).siblings('.hidden').slideToggle('fast');
+		return false;
+	});
+
+	$('.filters a').click(function() {
+		$(this).toggleClass('selected');
+		refreshData();
+		return false;
+	});
+{% if first_visit%}
+	
+	function closeFirstTimeInfo() {
+		$("#first_time_info").hide('slow');
+	}
+{% endif %}
+	
+</script>
+
+<script src="{{ MEDIA_URL }}js/ajaxupload.3.1.js" type="text/javascript"></script>
+<script type="text/javascript">
+	function displayResponse(response) {
+		$("#imageuploadfiles").html(""); 
+		$.each(response, function(i, file_data) 
+		{
+			$("#imageuploadfiles").append('<li>'+file_data.filename+'</li>');
+		} ); 
+	}
+</script>
+
+<!-- more javascript snippets - this one for browsing issues. Damn, this is getting messy ! -->
+
+<script type="text/javascript"><!--
+
+$('.expand').click(function() {
+	$(this).siblings('.hidden').slideToggle('fast');
+	return false;
+});
+
+$('.expand-ajax').click(function() {
+	var self = this, ul = $(this).siblings('ul');
+	if (this.__visible) {
+		ul.slideUp('fast');
+		this.__visible = false;
+	} else {
+		$.ajax({
+			url: this.href,
+			dataType: 'html',
+			success: function(content) {
+				ul.html(content).slideDown('fast');
+				self.__visible = true;
+			}
+		});
+	}
+	return false;
+});
+
+$('.report').parents().show();
+
+//--></script>
+
+{% endblock %}

@@ -1,0 +1,197 @@
+{% extends "subtabrow.html" %}
+{% block title %}{% trans "Browse map" %} :: {{ block.super }}{% endblock %}
+
+{% block navigation %}
+{% activetab "subnav" "timemap" %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div id="content_wide"><div id="content_top_wide"></div>
+
+<div id="timemap">
+	<div id="timelinecontainer">
+		<div id="timeline" style="float:left;"></div>
+	</div>
+	<div id="mapcontainer">
+		<div id="map"></div>
+	</div>
+	<a class="marker" href="javascript:followAndPutMarker(0)">
+ {% trans "Add a new placemarker on the map by clicking here." %}
+    </a>
+	
+</div>
+
+<div id="content_bottom_wide"></div></div>
+{% endblock %}
+
+{% block javascript %}
+<textarea id="gmaps_issue_template" style="display: none;">
+	<div class="issue">
+		<a href="${link}"><h1 class="title">${title}</h1></a>
+		<p class="description">${description|br|wrap:140}</p>
+		Kirjoittanut <span class="author">${author}  </span>,	
+		<span class="score">${score}</span> pistettä
+<a href="${link}"> > Lue lisää </a>
+	</div>
+</textarea>
+
+{{ block.super }}
+<script src="http://www.google.com/jsapi?key={{ settings.GOOGLE_MAPS_KEY }}" type="text/javascript"></script>
+<script type="text/javascript"><!--
+google.load("maps", "2.x");
+$('body').unload(function () { GUnload(); });
+Timeline_urlPrefix = "http://static.simile.mit.edu/timeline/api/"; 
+//--></script> 
+<script src="http://static.simile.mit.edu/timeline/api/timeline-api.js" type="text/javascript"></script>
+<script src="{{ MEDIA_URL }}timemap-1.4/timemap_full.pack.js" type="text/javascript"></script>
+<script src="{{ MEDIA_URL }}js/hila.timemap.js" type="text/javascript"></script>
+<script type="text/javascript"><!--
+
+
+$(function() {
+
+	var newMarker;
+	
+	var issueTemplate = TrimPath.parseDOMTemplate('gmaps_issue_template');
+	
+	TimeMap.init({
+		mapId: 'map',
+		timelineId: 'timeline',
+		datasets: [{
+			title: 'HILA raportit', 
+			data: {
+				type: 'json',
+				url: '{% url timemap_json_source %}?callback='
+			},
+			transformFunction: function(item) {
+				if (item.options.comments.length > 2) {
+					item.options.more_comments = item.options.comments.length - 2;
+					item.options.comments = item.options.comments.slice(0, 2);
+				} else {
+					item.options.more_comments = 0;
+				}
+				return item;
+			}
+		}],
+		bandInfo: [{
+			width: '80%',
+			intervalUnit: Timeline.DateTime.DAY,
+			intervalPixels: 60
+		}, {
+			width: '20%',
+			intervalUnit: Timeline.DateTime.WEEK,
+			intervalPixels: 40,
+			showEventText: false,
+			trackHeight: 0.4,
+			trackGap: 0.2
+		}],
+		options: {
+        	showMapTypeCtrl: false,
+            mapType: G_NORMAL_MAP,
+			openInfoWindow: Hila.timemap.openIssueWindowFn(issueTemplate),
+ 
+		},
+//		hmmm... by adding a dataLoadedFunction, the markers will not load on the map.
+// 		By adding the default behaviour to the function, we run into a namespace problem,
+// 		that I seem to be incabable of solving.
+
+//		dataDisplayedFunction seems a lot nicer; even though I still have no idea, where
+//		the actual data resides... rk/18.5.09
+		
+		dataDisplayedFunction: function(tm){
+			// The marker is placed in point.lat and point.lon based on issue.place[0]
+			// There might be several markers for a single issue;
+			// these are in item.options.points -array. 
+
+			items = [tm.datasets.ds0.items];
+
+			var trs = "";
+			
+//			for (item in items) {
+//				for (point in item.options.points) {
+//					point = new GMarker(point.lat, point.lng);
+//				}						
+				 
+/*
+ * Available things for an item in  tm.datasets.ds0.items[0]
+ 	event, 
+	dataset, 
+	map, 
+	placemark, 
+	opts, 
+	getType, 
+	getTitle, 
+	getInfoPoint, 
+	visible, 
+	showPlacemark, 
+	hidePlacemark, 
+	openInfoWindow, 
+	closeInfoWindow, 
+	clear, 
+	createEvent, 
+	changeTheme,  
+ */
+				// Go here through all issues and add the secondary places to the map...
+				// Then make a listener that will highlight the issues from the map
+				// to the timeline and vice versa.
+//			}
+
+//			alert ("aaa");
+			
+		}
+	});
+
+
+});
+
+var newMarker;
+
+function followAndPutMarker(imageInd) {
+	var dog = true;
+	var noMore = false;
+
+//	$("#newmarkerbutton").hide('slow');
+//	$("#newmarkerform").show('slow');
+	var map = Hila.timemap.mElement;
+	
+	var mouseMove = GEvent.addListener(map, 'mousemove', function(cursorPoint){
+		if(!noMore){
+			newMarker = new GMarker(cursorPoint,{draggable:true, autoPan:false});
+			map.addOverlay(newMarker);
+			newMarker.setImage(images[imageInd]);
+			noMore = true;
+			// This function deletes the marker when dragged outside map
+			
+			GEvent.addListener(newMarker, 'drag', function(markerPoint){
+				if(!map.getBounds().containsLatLng(markerPoint)){
+					map.removeOverlay(newMarker);
+				}
+			});
+			GEvent.addListener(newMarker, 'dragend', function(markerPoint){
+				{
+					geocoder.getLocations(markerPoint, showIssueAddress);
+				}
+			});
+
+		}
+		if(dog){
+			newMarker.setLatLng(cursorPoint);
+		}
+	});
+	
+	var mapClick = GEvent.addListener(map, 'click', function(overlay, point){
+		dog = false;
+		// 'mousemove' event listener is deleted to save resources
+		GEvent.removeListener(mouseMove);
+		GEvent.removeListener(mapClick);
+		
+		geocoder.getLocations(point, showIssueAddress);
+
+	});	
+}
+
+
+//--></script> 
+{% endblock %}

@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Fillarikanava :: Error</title>
+<style type="text/css">
+body{
+background-color:#fafafa;
+text-align:center;
+}
+#error{
+margin: 0 auto;
+width: 458px;
+}
+
+#error p{
+font-family:Georgia, "Times New Roman", Times, serif;
+font-size:14px;
+color:#3d8030;
+}
+
+#error span{
+color:#333333;
+font-weight:bold;}
+img{
+border:0px;
+margin-top:25px;}
+</style>
+</head>
+
+<body>
+
+<div id="error"><img src="{{ MEDIA_URL}}/images/virhe.gif" alt="Virhe sivustolla, asiaa selvitetään." /><br />
+<p>
+Virhe 500, eli me olemme mokanneet jotenkin.
+<br />
+<br />
+<span>Selvitellään asiaa. Jos haluat olla avuksi, pistä noottia meille ja kerro mitä olit tekemässä. Pahoittelemme totta kai toimintahäiriötä.</span></p>
+<p>
+terveisin, <br />
+<a href=mailto:"reima@openfeedback.org">reima@openfeedback.org</a>, 
+<a href=mailto:"janne@openfeedback.org">janne@openfeedback.org</a> &
+<a href=mailto:"jogi@openfeedback.org">jogi@openfeedback.org</a>
+<p>
+<a href="{% url public_front %}"> Tässä on vielä linkki etusivulle.</a>
+
+<hr>
+
+<p>
+Error 500 - this means that we have done something badly.
+<br />
+<br />
+<span>We'll debug this in the near future.
+If you'd like to help us, send us a message and tell us what you were doing. Sorry for the inconvenience. </span></p>
+<p> 
+Regards, <br />
+<a href=mailto:"reima@openfeedback.org">reima@openfeedback.org</a>, 
+<a href=mailto:"janne@openfeedback.org">janne@openfeedback.org</a> &
+<a href=mailto:"jogi@openfeedback.org">jogi@openfeedback.org</a>
+<p>
+<a href="{% url public_front %}"> Here's a link to the front page, might be useful now..</a>
+</div>
+
+</body>
+</html>

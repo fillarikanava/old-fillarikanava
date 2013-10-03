@@ -1,0 +1,8 @@
+:389
+-    mode = ftp.lstat(remotepath).st_mode
++    try:
++        mode = ftp.lstat(remotepath).st_mode
++    except:
++        mode = None
+    if mode is not None and stat.S_ISDIR(mode):
+        remotepath = os.path.join(remotepath, os.path.basename(localpath))

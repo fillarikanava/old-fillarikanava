@@ -1,0 +1,78 @@
+{% extends "account.html" %}
+{% load facebook_tags %}
+{% block navigation %}
+{% activetab "subnav" "login" %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div id="static_wide">
+<h3>{% trans "Log in"%}</h3>
+<div id="login_fk">
+<h4>{% trans "Use your Fillarikanava account"%}</h4>
+<table>
+<form action="{{ settings.LOGIN_URL }}" method="post" class="p-form">{% csrf_token %}
+    {% csrf_token %}
+	<input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}{% url public_front %}{% endif %}">
+	{{ form }}
+	<p>
+		<tr><td></td><td><input type="submit" value="{% trans "Sign in" %}"><td></tr>
+	</p>
+</form>
+</table>
+<p style="margin-top:15px;"> {% trans " Don't have an account? "%}<a href="{% url signup %}">{%trans "Create one!"%}</a><br />
+{% trans "Forgotten your password?" %} <a href="{% url auth_password_reset %}">{% trans "Recover it here." %}</a>
+	</p>
+<br />
+<br /></p>
+
+</div>
+<div id="login_fb">
+<h4>{% trans "Use your Facebook account"%}</h4>
+<script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
+{% show_connect_button %}
+
+</div>
+
+<!--<div id="log_in">
+   			<div id="loginstuff">
+
+				<div id="login-facebook">
+				    {% if user.is_authenticated %}
+				        {% trans "Howdy" %},
+				        {% if user.facebook_profile %}
+				        {{ user.facebook_profile.full_name }}!
+				        {% show_logout %}
+				        {% else %}
+				            {% if user.first_name and user.last_name %}
+                            {{ user.first_name }} {{ user.last_name }}!
+				            {% else %}
+                            {{ user.username }}!
+				            {% endif %}
+				        <a href="{% url logout %}">{% trans "Log out" %}</a>
+				        {% endif %}
+				    {% else %}
+    				    <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
+				        {% show_connect_button %}
+				    {% endif %}
+				    {% comment %}
+				        {% if facebook_message %}{{ facebook_message }}{% endif %}
+    					<script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
+
+    					{% if user.is_authenticated %}
+    						<p>  {{ user.first_name }} {{ user.last_name }}! 
+    						<a id="logout" href="{% url logout %}" onclick='FB.Connect.ifUserConnected(null,function() { window.location = "{{ settings.DJANGO_URL_PREFIX }}/accounts/logout" }); FB.Connect.logoutAndRedirect("{{ settings.DJANGO_URL_PREFIX }}/accounts/logout"); return false;'>{% trans "Sign out by clicking here" %}</a></p>
+    					{% else %}
+    						<!--  facebook connect -namiska: -->
+    						<!--<fb:login-button onlogin="location.reload(true);"></fb:login-button>
+    					{%  endif %}
+				    {% endcomment %}			
+					<script type="text/javascript">  
+                        //                  FB.init("{{ settings.FACEBOOK_API_KEY }}", 
+                        // "{{ settings.DJANGO_URL_PREFIX }}/accounts/xd_receiver.htm"); 
+					</script>
+				</div>
+			</div>	
+		
+		</div>	--></div>
+{% endblock %}

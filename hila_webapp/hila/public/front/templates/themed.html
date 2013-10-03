@@ -1,0 +1,345 @@
+{% extends "fillarikanava_map.html" %}
+{% block header %}
+
+ <div id="header">
+   <DIV id="header_main">
+ 	<div id="logo" style="margin-top:10px;">
+ 	    <a href="{% if decorations.custom_front_url %}{{ decorations.custom_front_url }}{% else %}{% url public_front %}{% endif %}"
+ 	    ><img src="{% if decorations.custom_logo_dir %}{{ decorations.custom_logo_dir }}{% else %}{{ MEDIA_URL }}/images/{% endif %}logo_{{ LANGUAGE_CODE }}.jpg" style="border:0;" /></a>
+    	</div>
+    </DIV>
+
+ {% if decorations.custom_ingress %}<div id="custom_ingress">{{ decorations.custom_ingress|safe }}</div>{% endif %}
+ </div>
+
+
+{% endblock %}
+
+{% block title %}
+{{ block.super }}
+ {% endblock %}
+{% block javascript-head %}
+	{{ block.super }}
+		<!--  front-base :: javascripts -->
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#front-tabs").tabs();
+				$("#front-tabs").removeClass("hide");
+			}); 
+		</script>
+		<script type="text/javascript">
+			$(function () {
+				var tabs = $('div#front-tabs > div');
+				tabs.hide().filter(':first').show();
+				
+				$('div#front-tabs ul.tab-navi a').click(function () {
+					tabs.hide();
+					tabs.filter(this.hash).show();
+					$('div#front-tabs ul.tab-navi a').removeClass('selected');
+					$(this).addClass('selected');
+					return false;
+				}).filter(':first').click();
+			});
+		</script>
+{% endblock %}
+{% block mainpanel %}
+ {{ block.super }}
+
+	
+
+	<div id="content_bottom"></div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="issueview"><!--[if lte IE 7]>
+<div style="height:16px;"></div>
+<![endif]-->
+
+
+	<div id="front-tabs" class="hide">
+		<ul class="tab-navi">
+			<li><a href="#tab-1">{% trans "Latest" %}</a></li>
+			<!--Activate again when the voting starts to work
+			<li><a href="#tab-2">{% trans "Popular" %}</a></li>
+			-->
+			<li><a href="#tab-3">{% trans "Official" %}</a></li>
+			<li><a href="#tab-5">{% trans "Browse" %}</a></li>			
+			<li><a href="#tab-4">{% trans "Search" %}</a></li>
+		</ul>
+		
+		<div id="tab-1">
+			<table>
+				<tr>
+					<td>
+						<ul class="msg_list">				
+							{% for message in latest_messages %}
+							<div id="tab_{{message.options.id}}">
+								<li class="sini_li"
+									onmouseover="style.backgroundColor='#84DFC1';
+									             issue_highlight([{% for place in message.options.points %}{% if forloop.first %} {% else %}, {% endif %}{{place.id}}{% endfor %}]);"
+									onmouseout="style.backgroundColor='#FFFFFF';
+									            stop_issue_highlight([{% for place in message.options.points %}{% if forloop.first %} {% else %}, {% endif %}{{place.id}}{% endfor %}]);">
+								
+									{% if message.options.comments %}
+									
+									{% for comment in message.options.comments %}
+
+									    {% if forloop.last %}
+									    <a href="{{ message.options.link }}#comment_{{comment.id}}">
+									       {{ comment.text|truncatewords_html:15 }}
+										</a>
+									<div class=metadata>
+										
+										<br>
+{% blocktrans with comment.author as commentauthor and comment.authorlink as commentauthorlink  and message.options.author as origauthor and message.options.authorlink as origauthorlink and message.options.link as messagelink and message.title as messagetitle and comment.smartdate as date %}<a href=/user/{{ commentauthorlink }}>{{ commentauthor }}</a> commented {{ date }} on message <a href={{messagelink}}> {{messagetitle}} </a> by <a href=/user/{{ origauthorlink }}>{{ origauthor }}</a>.{% endblocktrans %}
+										{% if message.options.address %}
+											,<img src="{{ MEDIA_URL }}/images/merkki_sin.png" alt="comment"/> {{ message.options.address }}
+										{% endif%}
+
+										<!--Activate again when the voting starts to work
+										 , <img src="{{ MEDIA_URL }}/images/icons/silk_icons/star.png" alt="comment"/>
+										{{ message.options.score }} {% trans "points" %}
+										-->						
+									</div>
+									   {% endif %} 
+									
+									{% endfor %}
+									
+									
+									{% else %}
+										<a href="{{ message.options.link }}">{{ message.title }}</a>
+										<br>
+
+									<div class=metadata>
+										{{ message.options.author }}, {{ message.options.smartdate }}
+										{% if message.options.address %}
+											,<img src="{{ MEDIA_URL }}/images/merkki_sin.png" alt="comment"/> {{ message.options.address }}
+										{% endif%}
+										<br>
+										<!--Activate again when the voting starts to work
+										 , <img src="{{ MEDIA_URL }}/images/icons/silk_icons/star.png" alt="comment"/>
+										{{ message.options.score }} {% trans "points" %}
+										-->						
+									</div>
+									
+									{% endif %}
+									
+									
+									
+								</li>
+							</div>
+							{% endfor %}
+						</ul>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+
+		<div id="tab-3">
+			<table>
+				<tr>
+					<td> <div id="officer_list">
+						<ul class="msg_list">
+							{% for message in officer_messages %}
+							<div id="tab_{{message.options.id}}">
+								<li class="sini_li"  
+									onmouseover="style.backgroundColor='#84DFC1';
+									             issue_highlight([{% for place in message.options.points %}{% if forloop.first %} {% else %}, {% endif %}{{place.id}}{% endfor %}]);"
+									onmouseout="style.backgroundColor='#FFFFFF';
+									            stop_issue_highlight([{% for place in message.options.points %}{% if forloop.first %} {% else %}, {% endif %}{{place.id}}{% endfor %}]);">
+									            
+
+
+									{% if message.options.comments %}
+									
+									{% for comment in message.options.comments %}
+
+									    {% if comment.official %}
+									    
+									    <a href="{{ message.options.link }}#comment_{{comment.id}}">
+									       {{ comment.text|truncatewords_html:15 }}
+										</a>
+									<div class=metadata>
+										
+										<br>
+{% blocktrans with comment.author as commentauthor and comment.authorlink as commentauthorlink  and message.options.author as origauthor and message.options.authorlink as origauthorlink and message.options.link as messagelink and message.title as messagetitle and comment.smartdate as date %}<a href=/user/{{ commentauthorlink }}>{{ commentauthor }}</a> commented {{ date }} on message <a href={{messagelink}}> {{messagetitle}} </a> by <a href=/user/{{ origauthorlink }}>{{ origauthor }}</a>.{% endblocktrans %}
+										{% if message.options.address %}
+											,<img src="{{ MEDIA_URL }}/images/merkki_sin.png" alt="comment"/> {{ message.options.address }}
+										{% endif%}
+										<!--Activate again when the voting starts to work
+										 , <img src="{{ MEDIA_URL }}/images/icons/silk_icons/star.png" alt="comment"/>
+										{{ message.options.score }} {% trans "points" %}
+										-->						
+									</div>
+									   {% endif %} 
+									
+									{% endfor %}
+									
+									
+									{% else %}
+										<a href="{{ message.options.link }}">{{ message.title }}</a>
+										<br>
+
+									<div class=metadata>
+										{{ message.options.author }}, {{ message.options.smartdate }}
+										{% if message.options.address %}
+											,<img src="{{ MEDIA_URL }}/images/merkki_sin.png" alt="comment"/> {{ message.options.address }}
+										{% endif%}
+										<br>
+										<!--Activate again when the voting starts to work
+										 , <img src="{{ MEDIA_URL }}/images/icons/silk_icons/star.png" alt="comment"/>
+										{{ message.options.score }} {% trans "points" %}
+										-->						
+									</div>
+									
+	
+									{% endif %}
+
+								</li>
+							</div>
+							{% endfor %}
+						</ul>
+					</div>
+					</td>
+
+				</tr>
+			</table>
+		</div>
+		
+		
+		<div id="tab-5">
+		<ul class="sections">
+{% for years in archives %}
+	<li>
+		{% for year, months in years %}
+			<li>
+				<a href="#" class="expand">{{ year }}</a>
+				<ul >
+				{% for month, reports in months %}
+					<li>
+						<a href="{% url archives_for_date year,month %}?status=foo" class="expand-ajax">
+							{{ MONTHS|get:month }}
+						</a>
+						<ul class="hidden">
+							{% include "for_date.html" %}
+						</ul>
+					</li>
+				{% endfor %}
+				</ul>
+			</li>
+		{% endfor %}
+	</li>
+{% endfor %}
+</ul>
+</div>
+		
+		<div id="tab-4">
+            <div id="matches">
+
+            </div>
+		</div>
+		
+<!-- Activate again when the voting starts to work
+		<div id="tab-2">
+			<table>
+			<tr>
+			<td>
+			<ul class="msg_list">				
+				{% for message in popular_messages %}
+						<li class="sini_li"  id="tab_{{message.options.id}}"  
+							onmouseover="style.backgroundColor='#84DFC1';
+							             issue_highlight([ {% for place in message.options.points %} {{place.id}}, {% endfor %}]);"
+							onmouseout="style.backgroundColor='#FFFFFF';
+							            stop_issue_highlight([ {% for place in message.options.points %} {{place.id}}, {% endfor %}]);">
+-->
+						<!--[if IE]><!--<p>&nbsp;&nbsp;<![endif]--> 
+<!--
+						<a href="{{ message.options.link }}">{{ message.title }}</a><br><br>
+						
+						{% if message.options.comments %}
+							<img src="{{ MEDIA_URL }}/images/icons/silk_icons/comment.png" alt="comment"/>
+							{{ message.options.commentcount }} 
+							{% trans "comments" %}, 
+							{% if message.options.last_comment_smartdate %}
+								{% trans "last " %} 
+								{{ message.options.last_comment_smartdate.0 }}
+							{% endif%}
+						{% else%}
+							{{ message.options.author }}, {{ message.options.smartdate }}
+						{% endif %}
+
+						 | <img src="{{ MEDIA_URL }}/images/icons/silk_icons/star.png" alt="comment"/>
+						{{ message.options.score }} {% trans "points" %}
+-->
+						<!-- [if IE]></p><![endif]-->
+<!--					</li>
+				{% endfor %}
+			</ul>
+			</td>
+			</tr>
+			</table>
+		</div>
+-->		
+		
+	</div>
+
+
+
+
+	<div id="follow">   
+		<p>{% trans "Service brought to you by:" %}<br/>
+<a href="http://www.hel.fi/wps/portal/Kaupunkisuunnitteluvirasto/Artikkeli?WCM_GLOBAL_CONTEXT=/Ksv/fi/Liikennesuunnittelu/Py_r_ily+ja+jalankulku/"> <img src="{{ MEDIA_URL }}/images/logo_hki.jpg" alt="Helsingin kaupunki" /></a></p>
+    <p>{% trans "In cooperation:" %}<br />
+<a href="http://www.hepo.fi/"> <img src="{{ MEDIA_URL }}/images/logo_hepo.jpg" alt="HePo" /></a><a href="http://www.fillarihelsinki.fi/"> <img src="{{ MEDIA_URL }}/images/logo_fillarihki.jpg" alt="Fillari Helsinki" /></a></p>
+    
+  
+		<p>{% trans "Follow us on" %}:<br />
+			<a href="http://www.facebook.com/group.php?gid=36053834482"> <img src="{{ MEDIA_URL }}/images/facebook.png" alt="Facebook" height="25" /></a>
+			<a href="http://www.qaiku.com/channels/show/fillarikanava/"> <img src="{{ MEDIA_URL }}/images/qaiku.png" alt="Qaiku" height="25" /></a>
+			<a href="http://twitter.com/fillarikanava"> <img src="{{ MEDIA_URL }}/images/twitter.png" alt="Twitter" height="25"/></a>
+		</p>
+ 
+
+
+	</div>
+
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+<script type="text/javascript">
+
+	var screenState = 'front';
+	var msg_cancel = '{% trans "Cancel" %}';
+	var msg_addbutton = '{% trans "Add new place on the map" %}';
+	{% if decorations.custom_create_url %}
+	var create_url = '{{   decorations.custom_create_url }}';
+	{% else %}
+	var create_url = '{% url report_create %}';
+    {% endif %}
+
+	newButtonInit();
+
+	refreshData();
+
+//    dotheajaxthing('{% url official_json_source %}', 7, 0, '#officer_list', {tag:"officer"});
+
+
+function closeFirstTimeInfo() {
+    $("#first_time_info").hide('slow');
+    $("#first_time_info_open").show('slow');
+}
+
+function openFirstTimeInfo() {
+    $("#first_time_info").show('slow');
+    $("#first_time_info_open").hide('slow');
+}
+
+
+
+</script>
+
+{% endblock %}

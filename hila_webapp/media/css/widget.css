@@ -1,0 +1,61 @@
+/* Override background and containers */
+
+body {
+	padding: 0px;
+	margin:0px;
+	background: url(../images/sm_bg.png) no-repeat;
+}
+ul, li{
+	text-indent:0px;
+	margin:0px;
+	padding:0px;
+}
+
+#container_top {
+	visibility: hidden;
+	margin: 0 auto;
+	height: 31px;
+	width: 200px;
+	background: None;
+}
+
+#container_bottom {
+	visibility: hidden;
+
+}
+#wrapper {
+	background: None;
+	padding: 0 0 0 0px;
+	position:absolute;
+	top:27px;
+	left:10px;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #333;
+	width: 170px;
+	overflow: hidden;
+}
+#wrapper li.banner_li{
+	list-style:none;
+	text-indent:0px;
+	font-size:10px;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	line-height:12px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+}
+
+li.banner_li a:link{
+font-size:12px;
+color:#478c1f;
+}
+li.banner_li a:hover{
+font-size:12px;
+color:#3e5331;
+}
+li.banner_li a:visited{
+font-size:12px;
+color:#478c1f;
+}
+
+

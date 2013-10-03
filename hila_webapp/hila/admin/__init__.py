@@ -1,0 +1,1 @@
+from hila.admin.site import admin

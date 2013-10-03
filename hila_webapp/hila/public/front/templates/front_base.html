@@ -1,0 +1,41 @@
+{% extends "hila_base.html" %}
+{% load facebook_tags %}
+{% block header %}
+
+
+<div id="header">
+
+  <DIV id="header_main">
+	<div id="logo" style="margin-top:10px;">
+	    <a href="{% if decorations.custom_front_url %}{{ decorations.custom_front_url }}{% else %}{% url public_front %}{% endif %}"
+	    ><img src="{% if decorations.custom_logo_dir %}{{ decorations.custom_logo_dir }}{% else %}{{ MEDIA_URL }}/images/{% endif %}logo_{{ LANGUAGE_CODE }}.jpg" style="border:0;" /></a>
+   	</div>
+	<div id="header_navi">
+
+		<a href="{% if decorations.custom_create_url %}{{ decorations.custom_create_url }}{% else %}{% url report_create %}{% endif %}"
+		><img src="{% if decorations.custom_add_new_button_dir %}{{ decorations.custom_add_new_button_dir }}{% else %}{{ MEDIA_URL }}/images/{% endif %}add_new_{{ LANGUAGE_CODE }}.gif" style="border:0;" /></a>
+	</div>
+  </DIV>
+</div>
+
+{% endblock %}
+
+{% block content %}				
+<!-- content begin -->
+
+<div id="content">
+	{% block mainpanel %}{% endblock %}	
+</div>
+<!-- content end -->
+
+<!-- sidebar begin -->
+
+<div class="sidebar">
+	{% block sidebar %}{% endblock %}	
+</div>
+<!-- sidebar ends -->
+{% endblock %}
+
+{% block footer%}
+
+{% endblock %}
